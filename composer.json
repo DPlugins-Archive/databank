@@ -11,8 +11,8 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
-        "league/omnipay": "^3",
-        "omnipay/paypal": "^3.0",
+        "payum/payum": "^1.6",
+        "payum/payum-bundle": "*",
         "sensio/framework-extra-bundle": "^6.2",
         "stof/doctrine-extensions-bundle": "^1.6",
         "symfony/console": "5.4.*",
@@ -71,6 +71,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",

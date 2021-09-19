@@ -59,7 +59,7 @@ class Blob
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="change", field={"content"})
+     * @Gedmo\Timestampable(on="change", field={"meta","content"})
      */
     private $updatedAt;
 
