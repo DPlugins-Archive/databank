@@ -33,7 +33,9 @@ class BillingHistory
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="ENUM('debit','credit')")
+     * The type of transaction. available values are: debit, credit.
+     * 
+     * @ORM\Column(type="string", length=180)
      */
     private $type;
 

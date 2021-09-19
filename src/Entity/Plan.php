@@ -35,7 +35,9 @@ class Plan
     private $duration;
 
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="ENUM('second','hour','day','month','year')")
+     * The unit of the duration. available values: second, hour, day, week, month, year.
+     * 
+     * @ORM\Column(type="string", length=180)
      */
     private $unit;
 
