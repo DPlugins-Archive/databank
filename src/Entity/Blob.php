@@ -63,6 +63,16 @@ class Blob
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $excerpt;
+
     public function __construct()
     {
         $this->revisions = new ArrayCollection();
@@ -207,6 +217,30 @@ class Blob
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(?string $excerpt): self
+    {
+        $this->excerpt = $excerpt;
 
         return $this;
     }

@@ -54,11 +54,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Folder::class, mappedBy="person", orphanRemoval=true)
-     */
-    private $folders;
-
-    /**
      * @ORM\OneToOne(targetEntity=Billing::class, inversedBy="person", cascade={"persist", "remove"})
      */
     private $billing;
@@ -74,9 +69,14 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="person", orphanRemoval=true)
+     */
+    private $tags;
+
     public function __construct()
     {
-        $this->folders = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,36 +172,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Folder[]
-     */
-    public function getFolders(): Collection
-    {
-        return $this->folders;
-    }
-
-    public function addFolder(Folder $folder): self
-    {
-        if (!$this->folders->contains($folder)) {
-            $this->folders[] = $folder;
-            $folder->setPerson($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFolder(Folder $folder): self
-    {
-        if ($this->folders->removeElement($folder)) {
-            // set the owning side to null (unless already changed)
-            if ($folder->getPerson() === $this) {
-                $folder->setPerson(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getBilling(): ?Billing
     {
         return $this->billing;
@@ -234,6 +204,36 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            // set the owning side to null (unless already changed)
+            if ($tag->getPerson() === $this) {
+                $tag->setPerson(null);
+            }
+        }
 
         return $this;
     }

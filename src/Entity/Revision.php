@@ -45,6 +45,16 @@ class Revision
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $excerpt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +116,30 @@ class Revision
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(?string $excerpt): self
+    {
+        $this->excerpt = $excerpt;
 
         return $this;
     }

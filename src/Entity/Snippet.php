@@ -31,11 +31,6 @@ class Snippet
     private $uuid;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $excerpt;
-
-    /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
     private $isPublic;
@@ -51,19 +46,20 @@ class Snippet
     private $meta = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity=Folder::class, inversedBy="snippets")
-     */
-    private $folder;
-
-    /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->blobs = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,18 +87,6 @@ class Snippet
     public function setUuid($uuid): self
     {
         $this->uuid = $uuid;
-
-        return $this;
-    }
-
-    public function getExcerpt(): ?string
-    {
-        return $this->excerpt;
-    }
-
-    public function setExcerpt(?string $excerpt): self
-    {
-        $this->excerpt = $excerpt;
 
         return $this;
     }
@@ -161,18 +145,6 @@ class Snippet
         return $this;
     }
 
-    public function getFolder(): ?Folder
-    {
-        return $this->folder;
-    }
-
-    public function setFolder(?Folder $folder): self
-    {
-        $this->folder = $folder;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -181,6 +153,33 @@ class Snippet
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addSnippet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeSnippet($this);
+        }
 
         return $this;
     }
