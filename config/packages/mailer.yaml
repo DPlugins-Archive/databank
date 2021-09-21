@@ -1,3 +1,7 @@
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'no-reply@dplugins.com'
+        headers:
+            from: 'dPlugins Cloud <no-reply@dplugins.com>'

@@ -23,7 +23,7 @@ class BillingHistory
     private $amount;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $createdAt;
 

@@ -52,7 +52,7 @@ class Folder
     private $snippets;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
