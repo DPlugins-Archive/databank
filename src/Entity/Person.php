@@ -74,9 +74,15 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Snippet::class, mappedBy="person", orphanRemoval=true)
+     */
+    private $snippets;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->snippets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +238,36 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($tag->getPerson() === $this) {
                 $tag->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Snippet[]
+     */
+    public function getSnippets(): Collection
+    {
+        return $this->snippets;
+    }
+
+    public function addSnippet(Snippet $snippet): self
+    {
+        if (!$this->snippets->contains($snippet)) {
+            $this->snippets[] = $snippet;
+            $snippet->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSnippet(Snippet $snippet): self
+    {
+        if ($this->snippets->removeElement($snippet)) {
+            // set the owning side to null (unless already changed)
+            if ($snippet->getPerson() === $this) {
+                $snippet->setPerson(null);
             }
         }
 

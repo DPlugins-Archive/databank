@@ -2,15 +2,36 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Filter\SnippetIsPublicFilter;
 use App\Repository\SnippetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Secured resource.
+ *
  * @ORM\Entity(repositoryClass=SnippetRepository::class)
  */
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_USER')",],
+    collectionOperations: ["get", "post",],
+    itemOperations: [
+        "get" => ["security" => "object.getIsPublic() == true or (is_granted('ROLE_USER') and object.getPerson() == user)",],
+        "put" => ["security" => "is_granted('ROLE_USER') and object.getPerson() == user",],
+        "delete" => ["security" => "is_granted('ROLE_USER') and object.getPerson() == user",],
+    ],
+    normalizationContext: ["groups" => ["snippet:read",],],
+    denormalizationContext: ["groups" => ["snippet:write",],],
+)]
 class Snippet
 {
     /**
@@ -18,43 +39,89 @@ class Snippet
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    #[Groups(["snippet:read",])]
+    #[ApiProperty(
+        identifier: false,
+        security: "is_granted('ROLE_ADMIN')",
+    )]
+    private int $id;
 
     /**
+     * The identifier of this snippet
+     * 
+     * @ORM\Column(type="uuid", unique=true)
+     */
+    #[Assert\Uuid]
+    #[Groups(["snippet:read",])]
+    #[ApiProperty(identifier: true)]
+    private Uuid $uuid;
+
+    /**
+     * The name of this snippet
+     * 
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    #[Groups(["snippet:read", "snippet:write",])]
+    #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
+    private string $name;
 
     /**
-     * @ORM\Column(type="uuid")
-     */
-    private $uuid;
-
-    /**
+     * The snippet visibility. Set to true if the snippet is public accessible.
+     * 
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    private $isPublic;
+    #[Groups(["snippet:read", "snippet:write",])]
+    #[ApiFilter(SnippetIsPublicFilter::class)]
+    private bool $isPublic;
 
     /**
      * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
+     * 
+     * @var Blob[]|Collection Available blobs for this snippet
      */
-    private $blobs;
-
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $meta = [];
+    #[Groups(["snippet:read",])]
+    #[ApiProperty(push: true)]
+    private iterable $blobs;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    private $createdAt;
+    #[Groups(["snippet:read",])]
+    private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
+     * 
+     * @var Tag[]|Collection Available tags for this snippet
      */
-    private $tags;
+    #[Groups(["snippet:read",])]
+    private iterable $tags;
+
+    /**
+     * The additional data about this snippet, all your apps extra data you can put in this field.
+     * 
+     * @ORM\Column(type="json", nullable=true)
+     */
+    #[Groups(["snippet:read", "snippet:write",])]
+    private ?array $meta = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    #[Groups(["snippet:read", "snippet:write",])]
+    #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
+    private ?string $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="snippets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    #[Groups(["snippet:read",])]
+    #[ApiProperty(
+        security: "is_granted('ROLE_USER') and object.getPerson() == user",
+    )]
+    private $person;
 
     public function __construct()
     {
@@ -67,18 +134,6 @@ class Snippet
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getUuid()
     {
         return $this->uuid;
@@ -87,6 +142,18 @@ class Snippet
     public function setUuid($uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -133,18 +200,6 @@ class Snippet
         return $this;
     }
 
-    public function getMeta(): ?array
-    {
-        return $this->meta;
-    }
-
-    public function setMeta(?array $meta): self
-    {
-        $this->meta = $meta;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -180,6 +235,42 @@ class Snippet
         if ($this->tags->removeElement($tag)) {
             $tag->removeSnippet($this);
         }
+
+        return $this;
+    }
+
+    public function getMeta(): ?array
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(?array $meta): self
+    {
+        $this->meta = $meta;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }

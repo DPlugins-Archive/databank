@@ -2,15 +2,34 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BlobRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BlobRepository::class)
  */
+#[ApiResource(
+    collectionOperations: [
+        "post" => [
+            "security_post_denormalize" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user"
+        ],
+    ],
+    itemOperations: [
+        "get" => ["security" => "object.getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getSnippet().getPerson() == user)",],
+        "put" => ["security" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",],
+        "delete" => ["security" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",],
+    ],
+    normalizationContext: ["groups" => ["blob:read"],],
+    denormalizationContext: ["groups" => ["blob:write",],],
+)]
 class Blob
 {
     /**
@@ -18,69 +37,112 @@ class Blob
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    #[ApiProperty(identifier: false)]
+    private int $id;
 
     /**
+     * The identifier of this blob.
+     * 
+     * @ORM\Column(type="uuid", unique=true)
+     */
+    #[Assert\Uuid]
+    #[ApiProperty(identifier: true)]
+    #[Groups(["blob:read", "snippet:read",])]
+    private Uuid $uuid;
+
+    /**
+     * The snippet this blob belongs to.
+     * 
      * @ORM\ManyToOne(targetEntity=Snippet::class, inversedBy="blobs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $snippet;
+    #[Groups(["blob:read", "blob:write",])]
+    private ?Snippet $snippet;
 
     /**
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
+     * 
+     * @var Revision[]|Collection Available revisions for this blob.
      */
-    private $revisions;
+    #[Groups(["blob:read",])]
+    private iterable $revisions;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $meta = [];
-
-    /**
+     * The hash of this blob's content.
+     * 
      * @ORM\Column(type="text")
      */
-    private $content;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $hash;
-
-    /**
-     * @ORM\Column(type="uuid")
-     */
-    private $uuid;
+    #[Groups(["blob:read", "snippet:read",])]
+    private ?string $hash;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    private $createdAt;
+    #[Groups(["blob:read", "snippet:read",])]
+    private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="change", field={"meta","content"})
      */
-    private $updatedAt;
+    #[Groups(["blob:read", "snippet:read",])]
+    private ?\DateTimeImmutable $updatedAt;
 
     /**
+     * The size of this blob in bytes.
+     * 
      * @ORM\Column(type="integer", options={"default":0})
      */
-    private $size;
+    #[Groups(["blob:read", "snippet:read",])]
+    private int $size;
 
     /**
+     * The additional data about this blob, all your apps extra data you can put in this field.
+     * 
+     * @ORM\Column(type="json", nullable=true)
+     */
+    #[Groups(["blob:read", "blob:write", "snippet:read",])]
+    private ?array $meta = [];
+
+    /**
+     * The excerpt of this blob. This is the first few lines of the blob's content for preview purposes.
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
-    private $excerpt;
+    #[Groups(["blob:read", "snippet:read",])]
+    private ?string $excerpt;
+
+    /**
+     * The content of this blob. This is where you can store your snippet code content.
+     * 
+     * @ORM\Column(type="text")
+     */
+    #[Assert\NotBlank]
+    #[Groups(["blob:read", "blob:write"])]
+    private string $content;
 
     public function __construct()
     {
+        $this->setUuid(Uuid::v4());
         $this->revisions = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid($uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     public function getSnippet(): ?Snippet
@@ -125,54 +187,6 @@ class Blob
         return $this;
     }
 
-    public function getCreated(): ?\DateTimeImmutable
-    {
-        return $this->created;
-    }
-
-    public function setCreated(\DateTimeImmutable $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function getUpdated(): ?\DateTimeImmutable
-    {
-        return $this->updated;
-    }
-
-    public function setUpdated(?\DateTimeImmutable $updated): self
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    public function getMeta(): ?array
-    {
-        return $this->meta;
-    }
-
-    public function setMeta(?array $meta): self
-    {
-        $this->meta = $meta;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(?string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function getHash(): ?string
     {
         return $this->hash;
@@ -181,18 +195,6 @@ class Blob
     public function setHash(string $hash): self
     {
         $this->hash = $hash;
-
-        return $this;
-    }
-
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid($uuid): self
-    {
-        $this->uuid = $uuid;
 
         return $this;
     }
@@ -233,6 +235,18 @@ class Blob
         return $this;
     }
 
+    public function getMeta(): ?array
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(?array $meta): self
+    {
+        $this->meta = $meta;
+
+        return $this;
+    }
+
     public function getExcerpt(): ?string
     {
         return $this->excerpt;
@@ -241,6 +255,22 @@ class Blob
     public function setExcerpt(?string $excerpt): self
     {
         $this->excerpt = $excerpt;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
+
+        $this->setHash(sha1($content));
+        $this->setSize(strlen($content));
+        $this->setExcerpt(substr($content, 0, 200));
 
         return $this;
     }
