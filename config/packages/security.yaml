@@ -26,6 +26,11 @@ security:
             provider: app_user_provider
             jwt: ~
 
+            # Extending Authenticator
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/issues/193
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/2-data-customization.md#eventsjwt_decoded---validating-data-in-the-jwt-payload
+            
+
         main:
             lazy: true
             provider: app_user_provider

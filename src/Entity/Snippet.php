@@ -47,8 +47,6 @@ class Snippet
     private int $id;
 
     /**
-     * The identifier of this snippet
-     * 
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
@@ -57,8 +55,6 @@ class Snippet
     private Uuid $uuid;
 
     /**
-     * The name of this snippet
-     * 
      * @ORM\Column(type="string", length=255)
      */
     #[Groups(["snippet:read", "snippet:write",])]
@@ -66,8 +62,6 @@ class Snippet
     private string $name;
 
     /**
-     * The snippet visibility. Set to true if the snippet is public accessible.
-     * 
      * @ORM\Column(type="boolean", options={"default":false})
      */
     #[Groups(["snippet:read", "snippet:write",])]
@@ -76,12 +70,10 @@ class Snippet
 
     /**
      * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
-     * 
-     * @var Blob[]|Collection Available blobs for this snippet
      */
     #[Groups(["snippet:read",])]
     #[ApiProperty(push: true)]
-    private iterable $blobs;
+    private $blobs;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -121,10 +113,11 @@ class Snippet
     #[ApiProperty(
         security: "is_granted('ROLE_USER') and object.getPerson() == user",
     )]
-    private $person;
+    private Person $person;
 
     public function __construct()
     {
+        $this->uuid = Uuid::v4();
         $this->blobs = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -134,7 +127,7 @@ class Snippet
         return $this->id;
     }
 
-    public function getUuid()
+    public function getUuid(): ?Uuid
     {
         return $this->uuid;
     }

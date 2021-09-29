@@ -27,7 +27,13 @@ services:
     App\EventListener\BlobChangeRevise:
         tags:
             - 
-                # these are the options required to define the entity listener
                 name: 'doctrine.event_listener'
                 event: 'onFlush'
-                entity: 'App\Entity\Blob'
+
+    App\EventListener\SnippetOwnerAssigner:
+        tags:
+            -
+                # these are the options required to define the entity listener
+                name: 'doctrine.orm.entity_listener'
+                event: 'prePersist'
+                entity: 'App\Entity\Snippet'

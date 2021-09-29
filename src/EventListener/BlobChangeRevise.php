@@ -11,13 +11,14 @@ class BlobChangeRevise
 {
     public function onFlush(OnFlushEventArgs $args): void
     {
+        // TODO: exclusive feature for logged and premium users
+
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($entity instanceof Blob) {
                 $entityChangeSet = $uow->getEntityChangeSet($entity);
-
                 if (key_exists('content', $entityChangeSet)) {
                     $revision = new Revision();
                     $revision->setUuid(Uuid::v4());

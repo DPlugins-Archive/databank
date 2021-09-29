@@ -29,6 +29,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ["groups" => ["blob:read"],],
     denormalizationContext: ["groups" => ["blob:write",],],
+    attributes: [
+        "order" => ["revisions.createdAt" => "ASC"],
+    ],
 )]
 class Blob
 {
@@ -41,8 +44,6 @@ class Blob
     private int $id;
 
     /**
-     * The identifier of this blob.
-     * 
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
@@ -51,8 +52,6 @@ class Blob
     private Uuid $uuid;
 
     /**
-     * The snippet this blob belongs to.
-     * 
      * @ORM\ManyToOne(targetEntity=Snippet::class, inversedBy="blobs")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -61,15 +60,11 @@ class Blob
 
     /**
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
-     * 
-     * @var Revision[]|Collection Available revisions for this blob.
      */
     #[Groups(["blob:read",])]
-    private iterable $revisions;
+    private $revisions;
 
     /**
-     * The hash of this blob's content.
-     * 
      * @ORM\Column(type="text")
      */
     #[Groups(["blob:read", "snippet:read",])]
@@ -124,7 +119,7 @@ class Blob
 
     public function __construct()
     {
-        $this->setUuid(Uuid::v4());
+        $this->uuid = Uuid::v4();
         $this->revisions = new ArrayCollection();
     }
 
@@ -133,7 +128,7 @@ class Blob
         return $this->id;
     }
 
-    public function getUuid()
+    public function getUuid(): ?Uuid
     {
         return $this->uuid;
     }

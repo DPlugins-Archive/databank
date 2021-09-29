@@ -29,7 +29,7 @@ class Revision
      * @ORM\Column(type="integer")
      */
     #[ApiProperty(identifier: false)]
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="uuid", unique=true)
@@ -43,45 +43,45 @@ class Revision
      * @ORM\ManyToOne(targetEntity=Blob::class, inversedBy="revisions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $blob;
+    private ?Blob $blob;
 
     /**
      * @ORM\Column(type="text")
      */
     #[Groups(["blob:read", "revision:read",])]
-    private $hash;
+    private ?string $hash;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     #[Groups(["blob:read", "revision:read",])]
-    private $createdAt;
+    private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="integer", options={"default":0})
      */
     #[Groups(["blob:read", "revision:read",])]
-    private $size;
+    private int $size;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(["blob:read", "revision:read",])]
-    private $excerpt;
+    private string $excerpt;
 
     /**
      * @ORM\Column(type="text")
      */
     #[Groups(["revision:read",])]
-    private $content;
+    private string $content;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUuid()
+    public function getUuid(): ?Uuid
     {
         return $this->uuid;
     }

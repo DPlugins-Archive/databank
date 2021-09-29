@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
@@ -18,20 +19,22 @@ class Tag
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ApiProperty(identifier=false)
      */
-    private $id;
+    #[ApiProperty(identifier: false)]
+    private int $id;
 
     /**
      * @ORM\Column(type="uuid", unique=true)
      * @ApiProperty(identifier=true)
      */
+    #[Assert\Uuid]
+    #[ApiProperty(identifier: true)]
     private Uuid $uuid;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\ManyToMany(targetEntity=Snippet::class, inversedBy="tags")
@@ -54,7 +57,7 @@ class Tag
         return $this->id;
     }
 
-    public function getUuid()
+    public function getUuid(): ?Uuid
     {
         return $this->uuid;
     }

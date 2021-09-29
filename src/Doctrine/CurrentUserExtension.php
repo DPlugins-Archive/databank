@@ -34,15 +34,14 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
             return;
         }
 
-
         switch ($resourceClass) {
-            case Blob::class:
+            // case Blob::class:
                 // $blobRootAlias = $queryBuilder->getRootAliases()[0];
                 // $snippetRootAlias = 'snippet';
                 // $queryBuilder->leftJoin("$blobRootAlias.snippet", $snippetRootAlias);
                 // $queryBuilder->orWhere(sprintf('%s.isPublic = :is_public', $snippetRootAlias));
                 // $queryBuilder->setParameter('is_public', true);
-                // do not break here !
+                // no break
 
             case Snippet::class:
                 $snippetRootAlias = $snippetRootAlias ?? $queryBuilder->getRootAliases()[0];
