@@ -1,6 +1,22 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# payum_all:
+#     resource: "@PayumBundle/Resources/config/routing/all.xml"
+
+app_dashboard_shortcut:
+    path: /app
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'app_dashboard'
 api_login_check:
     path: /authentication_token
     methods: ['POST']
+
+redirect_digitalocean:
+    path: /redirect/digitalocean
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: 'https://www.digitalocean.com/?refcode=acb41ca21dc2&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge'
+        permanent: true

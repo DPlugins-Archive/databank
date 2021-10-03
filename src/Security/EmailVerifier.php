@@ -2,6 +2,9 @@
 
 namespace App\Security;
 
+use App\Entity\Billing;
+use App\Entity\Plan;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +58,19 @@ class EmailVerifier
 
         $user->setIsVerified(true);
 
+        $billing = new Billing();
+
+        $plan = $this->entityManager->getRepository(Plan::class)->findOneBy(['slug' => 'monthly']);
+
+        $billing->setPlan($plan);
+
+        $billing->setPerson($user);
+        $billing->setIsActive(true);
+        $billing->setIsAutoRenewal(true);
+        $billing->setCredit(0);
+        $billing->setExpiredAt(CarbonImmutable::now()->add('month', 1));
+
+        $this->entityManager->persist($billing);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }

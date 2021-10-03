@@ -15,8 +15,7 @@
         "doctrine/orm": "^2.9",
         "lexik/jwt-authentication-bundle": "^2.13",
         "nelmio/cors-bundle": "^2.1",
-        "payum/payum": "^1.6",
-        "payum/payum-bundle": "*",
+        "nesbot/carbon": "^2.53",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.2",
         "stof/doctrine-extensions-bundle": "^1.6",
@@ -39,7 +38,10 @@
         "symfony/validator": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.4.*",
-        "symfonycasts/verify-email-bundle": "^1.5"
+        "symfonycasts/reset-password-bundle": "^1.9",
+        "symfonycasts/verify-email-bundle": "^1.5",
+        "twig/extra-bundle": "^3.3",
+        "twig/intl-extra": "^3.3"
     },
     "config": {
         "optimize-autoloader": true,
