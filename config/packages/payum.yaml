@@ -1,0 +1,15 @@
+payum:
+    storages:
+        App\Entity\Payment: { doctrine: orm }
+
+    security:
+        token_storage:
+            App\Entity\PaymentToken: { doctrine: orm }
+
+    gateways:
+        expressCheckout:
+            factory: paypal_express_checkout
+            username: '%env(PAYPAL_EXPRESS_CHECKOUT_USERNAME)%'
+            password: '%env(PAYPAL_EXPRESS_CHECKOUT_PASSWORD)%'
+            signature: '%env(PAYPAL_EXPRESS_CHECKOUT_SIGNATURE)%'
+            sandbox: '%env(bool:PAYPAL_EXPRESS_CHECKOUT_SANDBOX)%'

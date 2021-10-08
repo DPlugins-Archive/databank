@@ -2,33 +2,108 @@
 
 namespace App\Controller\App;
 
+use App\Entity\Billing;
+use App\Entity\BillingHistory;
+use App\Entity\Payment;
+use App\Entity\Person;
+use App\Entity\Plan;
+use Carbon\CarbonImmutable;
+use Doctrine\Persistence\ManagerRegistry;
+use Happyr\Validator\Constraint\EntityExist;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetHumanStatus;
+use Payum\ISO4217\ISO4217;
+use Payum\Paypal\ExpressCheckout\Nvp\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PaymentController extends AbstractController
 {
-    private $payum;
+    private $currency;
+    private $validator;
 
-    // public function __construct(Payum $payum)
-    // {
-    //     $this->payum = $payum;
-    // }
-
-    #[Route('/app/add-balance', name: 'app_add_balance', methods: ['POST'])]
-    public function addBalance(Request $request): Response
+    public function __construct(ValidatorInterface $validator)
     {
-        $gatewayName = 'paypal_rest';
+        $this->currency = (new ISO4217())->findByAlpha3('USD');
+        $this->validator = $validator;
+    }
+
+    #[Route('/app/payment/buy-subscription', name: 'app_payment_buy_subscription', methods: ['POST'])]
+    public function buySubscription(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $subscription = $request->request->get('subscription');
+
+        $validation = $this->validator->validate($subscription, [
+            new Assert\NotBlank(),
+            new EntityExist(['entity' => Plan::class, 'property' => 'slug', 'message' => 'This choosen plan does not exist.']),
+        ]);
+
+        if (count($validation) > 0) {
+            $this->addFlash(
+                'subscription_notice',
+                $validation->get(0)->getMessage()
+            );
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+
+        /** @var Plan $plan */
+        $plan = $doctrine->getRepository(Plan::class)->findOneBy([
+            'slug' => $subscription,
+        ]);
+
+        /** @var Billing $billing */
+        $billing = $this->getUser()->getBilling();
+
+        if ($plan->getPrice() > $billing->getCredit()) {
+            $this->addFlash(
+                'subscription_notice',
+                'You do not have enough credit to buy this plan'
+            );
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+
+        $expiredAt = CarbonImmutable::instance($billing->getExpiredAt() ?? CarbonImmutable::now());
+
+        $billing->setCredit($billing->getCredit() - $plan->getPrice());
+        $billing->setIsActive(true);
+        $billing->setIsAutoRenewal(true);
+        $billing->setPlan($plan);
+        $billing->setExpiredAt($expiredAt->add($plan->getUnit(), $plan->getDuration()));
+
+        $billingHistory = new BillingHistory();
+        $billingHistory->setType(BillingHistory::TYPE_CREDIT);
+        $billingHistory->setBilling($billing);
+        $billingHistory->setAmount($plan->getPrice());
+        $billingHistory->setDescription(sprintf('%s plan', $plan->getName()));
+        $billingHistory->setStatus(BillingHistory::STATUS_COMPLETED);
+
+        $entityManager->persist($billingHistory);
+
+        $entityManager->flush();
+
+        $this->addFlash(
+            'subscription_notice',
+            sprintf('You have successfully purchased %s plan', $plan->getName())
+        );
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    #[Route('/app/payment/add-balance', name: 'app_payment_add_balance', methods: ['POST'])]
+    public function addBalance(Request $request, Payum $payum): Response
+    {
+        $gatewayName = 'expressCheckout';
 
         $amount = $request->request->get('amount');
 
-        $validator = Validation::createValidator();
-        $validation = $validator->validate($amount, [
+        $validation = $this->validator->validate($amount, [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
             new Assert\GreaterThanOrEqual(['value' => 15]),
@@ -43,64 +118,78 @@ class PaymentController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
-        // return $this->redirectToRoute('app_dashboard');
+        $storage = $payum->getStorage(Payment::class);
 
-
-        $storage = $this->payum->getStorage(\Payum\Core\Model\Payment::class);
+        /** @var Person $person */
+        $person = $this->getUser();
 
         $payment = $storage->create();
-        $payment->setNumber(uniqid());
-        $payment->setTotalAmount($amount * 100); // pow(10, 2)
-        $payment->setCurrencyCode('USD');
-        $payment->setClientId($this->getUser()->getId());
-        $payment->setClientEmail($this->getUser()->getEmail());
 
-        // $payment->setDetails([
-        //     // put here any fields in a gateway format.
-        // ]);
+        $payment->setNumber(uniqid());
+        $payment->setTotalAmount($amount * pow(10, $this->currency->getExp()));
+        $payment->setCurrencyCode($this->currency->getAlpha3());
+        $payment->setClientId($person->getId());
+        $payment->setClientEmail($person->getEmail());
+
+        $payment->setDetails([
+            'L_PAYMENTREQUEST_0_NAME0' => 'Deposit',
+            'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => Api::PAYMENTREQUEST_ITERMCATEGORY_DIGITAL,
+            'NOSHIPPING' => Api::NOSHIPPING_NOT_DISPLAY_ADDRESS,
+            'REQCONFIRMSHIPPING' => Api::REQCONFIRMSHIPPING_NOT_REQUIRED,
+        ]);
 
         $storage->update($payment);
 
-        $captureToken = $this->payum->getTokenFactory()->createCaptureToken(
+        $captureToken = $payum->getTokenFactory()->createCaptureToken(
             $gatewayName,
             $payment,
-            'app_add_balance_done' // the route to redirect after capture
+            'app_payment_add_balance_done'
         );
-
-        return $this->json([
-            'next' => $captureToken->getTargetUrl(),
-        ]);
 
         return $this->redirect($captureToken->getTargetUrl());
     }
 
-    #[Route('/app/add-balance-done', name: 'app_add_balance_done')]
-    public function captureDoneAction(Request $request)
+    #[Route('/app/payment/add-balance-done', name: 'app_payment_add_balance_done')]
+    public function captureDoneAction(Request $request, ManagerRegistry $doctrine, Payum $payum)
     {
-        $token = $this->payum->getHttpRequestVerifier()->verify($request);
-        
-        $identity = $token->getDetails();
-        $model = $this->payum->getStorage($identity->getClass())->find($identity);
+        $entityManager = $doctrine->getManager();
 
-        $gateway = $this->payum->getGateway($token->getGatewayName());
+        $token = $payum->getHttpRequestVerifier()->verify($request);
 
-        // you can invalidate the token. The url could not be requested any more.
-        // $this->payum->getHttpRequestVerifier()->invalidate($token);
-        
-        // Once you have token you can get the model from the storage directly. 
-        //$identity = $token->getDetails();
-        //$details = $payum->getStorage($identity->getClass())->find($identity);
-        
-        // or Payum can fetch the model for you while executing a request (Preferred).
+        $gateway = $payum->getGateway($token->getGatewayName());
+
         $gateway->execute($status = new GetHumanStatus($token));
-        $details = $status->getFirstModel();
+        $payment = $status->getFirstModel();
 
-        // you have order and payment status 
-        // so you can do whatever you want for example you can just print status and payment details.
-        
-        return $this->json([
-            'status' => $status->getValue(),
-            'details' => iterator_to_array($details),
-        ]);
+        if ($status->isCaptured()) {
+            $this->addFlash(
+                'deposit_amount_notice',
+                'Your deposit has been successfully added.'
+            );
+
+            /** @var Person $person */
+            $person = $this->getUser();
+
+            $billing = $person->getBilling();
+            $billing->setCredit($billing->getCredit() + ($payment->getTotalAmount() / pow(10, $this->currency->getExp())));
+
+            $billingHistory = new BillingHistory();
+            $billingHistory->setType(BillingHistory::TYPE_DEBIT);
+            $billingHistory->setBilling($billing);
+            $billingHistory->setPayment($payment);
+            $billingHistory->setAmount($payment->getTotalAmount() / pow(10, $this->currency->getExp()));
+            $billingHistory->setDescription('Deposit via PayPal');
+            $billingHistory->setStatus(BillingHistory::STATUS_COMPLETED);
+
+            $entityManager->persist($billingHistory);
+            $entityManager->flush();
+        } else {
+            $this->addFlash(
+                'deposit_amount_notice',
+                'Your deposit has been failed.'
+            );
+        }
+
+        return $this->redirectToRoute('app_dashboard');
     }
 }

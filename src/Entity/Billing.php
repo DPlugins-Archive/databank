@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BillingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,17 @@ class Billing
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $expiredAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BillingHistory::class, mappedBy="billing", orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $billingHistories;
+
+    public function __construct()
+    {
+        $this->billingHistories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -130,6 +143,36 @@ class Billing
     public function setExpiredAt(?\DateTimeImmutable $expiredAt): self
     {
         $this->expiredAt = $expiredAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BillingHistory[]
+     */
+    public function getBillingHistories(): Collection
+    {
+        return $this->billingHistories;
+    }
+
+    public function addBillingHistory(BillingHistory $billingHistory): self
+    {
+        if (!$this->billingHistories->contains($billingHistory)) {
+            $this->billingHistories[] = $billingHistory;
+            $billingHistory->setBilling($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillingHistory(BillingHistory $billingHistory): self
+    {
+        if ($this->billingHistories->removeElement($billingHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($billingHistory->getBilling() === $this) {
+                $billingHistory->setBilling(null);
+            }
+        }
 
         return $this;
     }

@@ -1,4 +1,7 @@
 {
+    "alcohol/iso4217": {
+        "version": "4.0.0"
+    },
     "api-platform/core": {
         "version": "2.5",
         "recipe": {
@@ -15,6 +18,9 @@
     },
     "behat/transliterator": {
         "version": "v1.3.0"
+    },
+    "clue/stream-filter": {
+        "version": "v1.5.0"
     },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
@@ -114,6 +120,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "dragonmantank/cron-expression": {
+        "version": "v3.1.0"
+    },
     "egulias/email-validator": {
         "version": "3.1.1"
     },
@@ -126,6 +135,21 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.1.0"
     },
+    "guikingone/scheduler-bundle": {
+        "version": "0.7.0"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "7.3.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.4.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "2.0.0"
+    },
+    "happyr/entity-exists-validation-constraint": {
+        "version": "1.0.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
@@ -134,6 +158,15 @@
     },
     "lcobucci/jwt": {
         "version": "4.1.4"
+    },
+    "league/uri": {
+        "version": "6.5.0"
+    },
+    "league/uri-components": {
+        "version": "2.4.0"
+    },
+    "league/uri-interfaces": {
+        "version": "2.3.0"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
@@ -174,11 +207,47 @@
     "nikic/php-parser": {
         "version": "v4.12.0"
     },
+    "payum/core": {
+        "version": "1.6-dev"
+    },
+    "payum/iso4217": {
+        "version": "1.0.1"
+    },
+    "payum/paypal-express-checkout-nvp": {
+        "version": "1.6-dev"
+    },
+    "payum/payum-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.4",
+            "ref": "518ac22defa04a8a1d82479ed362e2921487adf0"
+        },
+        "files": [
+            "./config/packages/payum.yaml"
+        ]
+    },
     "phar-io/manifest": {
         "version": "2.0.3"
     },
     "phar-io/version": {
         "version": "3.1.0"
+    },
+    "php-http/guzzle7-adapter": {
+        "version": "1.0.0"
+    },
+    "php-http/httplug": {
+        "version": "2.2.0"
+    },
+    "php-http/message": {
+        "version": "1.12.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/promise": {
+        "version": "1.1.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -230,11 +299,23 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.1.1"
     },
     "psr/log": {
         "version": "2.0.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -395,6 +476,9 @@
             "./.env"
         ]
     },
+    "symfony/form": {
+        "version": "5.4.x-dev"
+    },
     "symfony/framework-bundle": {
         "version": "5.4",
         "recipe": {
@@ -425,6 +509,18 @@
     },
     "symfony/intl": {
         "version": "5.4.x-dev"
+    },
+    "symfony/lock": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "a1c8800e40ae735206bb14586fdd6c4630a51b8d"
+        },
+        "files": [
+            "./config/packages/lock.yaml"
+        ]
     },
     "symfony/mailer": {
         "version": "4.3",
@@ -468,6 +564,9 @@
             "./config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "5.4.x-dev"
+    },
     "symfony/password-hasher": {
         "version": "5.4.x-dev"
     },
@@ -488,6 +587,9 @@
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.23.1"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
@@ -512,6 +614,9 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.23.0"
+    },
+    "symfony/process": {
+        "version": "5.4.x-dev"
     },
     "symfony/property-access": {
         "version": "5.4.x-dev"

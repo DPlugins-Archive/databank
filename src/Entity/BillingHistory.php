@@ -4,12 +4,26 @@ namespace App\Entity;
 
 use App\Repository\BillingHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=BillingHistoryRepository::class)
  */
 class BillingHistory
 {
+    const STATUS_PENDING = 'pending';
+    const STATUS_PAID = 'paid';
+    const STATUS_CANCELED = 'canceled';
+    const STATUS_REFUNDED = 'refunded';
+    const STATUS_FAILED = 'failed';
+    const STATUS_UNKNOWN = 'unknown';
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_INVALID = 'invalid';
+
+    const TYPE_DEBIT = 'debit';
+    const TYPE_CREDIT = 'credit';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -24,6 +38,7 @@ class BillingHistory
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -38,6 +53,22 @@ class BillingHistory
      * @ORM\Column(type="string", length=180)
      */
     private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Billing::class, inversedBy="billingHistories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $billing;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Payment::class, inversedBy="billingHistory", cascade={"persist", "remove"})
+     */
+    private $payment;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -88,6 +119,42 @@ class BillingHistory
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getBilling(): ?Billing
+    {
+        return $this->billing;
+    }
+
+    public function setBilling(?Billing $billing): self
+    {
+        $this->billing = $billing;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): self
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

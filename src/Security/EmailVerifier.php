@@ -71,7 +71,6 @@ class EmailVerifier
         $billing->setExpiredAt(CarbonImmutable::now()->add('month', 1));
 
         $this->entityManager->persist($billing);
-        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 }

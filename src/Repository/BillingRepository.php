@@ -60,28 +60,16 @@ class BillingRepository extends ServiceEntityRepository
 
     public function downgradeExpired(): int
     {
-        $qb = $this->getExpiredQueryBuilder();
-
-        $parameters = $qb->getParameters()->toArray();
-        
-        return $qb->update()
+        return $this->getExpiredQueryBuilder()
+            ->update()
             ->set('b.isActive', ':is_active')
             ->set('b.isAutoRenewal', ':is_auto_renewal')
             ->set('b.expiredAt', ':expired_at')
-            ->setParameters(array_merge(
-                array_combine(
-                    array_map(fn ($element) => $element->getName(), $parameters),
-                    array_map(fn ($element) => $element->getValue(), $parameters)
-                ),
-                [
-                    'is_active' => false,
-                    'is_auto_renewal' => false,
-                    'expired_at' => null,
-                ]
-            ))
+            ->setParameter('is_active', false)
+            ->setParameter('is_auto_renewal', false)
+            ->setParameter('expired_at', null)
             ->getQuery()
-            ->execute()
-        ;
+            ->execute();
     }
 
     private function getExpiredQueryBuilder(): QueryBuilder

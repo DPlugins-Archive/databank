@@ -2,8 +2,8 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-# payum_all:
-#     resource: "@PayumBundle/Resources/config/routing/all.xml"
+payum_all:
+    resource: '@PayumBundle/Resources/config/routing/all.xml'
 
 app_dashboard_shortcut:
     path: /app
@@ -19,4 +19,11 @@ redirect_digitalocean:
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
     defaults:
         path: 'https://www.digitalocean.com/?refcode=acb41ca21dc2&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge'
+        permanent: true
+
+redirect_hetzner:
+    path: /redirect/hetzner
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: 'https://hetzner.cloud/?ref=J37mHc19fUpr'
         permanent: true
