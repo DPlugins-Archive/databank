@@ -16,8 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BillingRepository extends ServiceEntityRepository
 {
-    private const DAYS_GRACE_PERIOD = 3;
-    private const DAYS_EXPIRE_REMINDER = 7;
+    public const DAYS_GRACE_PERIOD = 3;
+    public const DAYS_EXPIRE_REMINDER = 7;
 
     public function __construct(ManagerRegistry $registry)
     {
