@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - /docker/db/data:/var/lib/postgresql/data:rw
+
+  pgbouncer:
+    image: bitnami/pgbouncer:latest
+    depends_on:
+      - database
+    environment:
+      POSTGRESQL_USERNAME: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRESQL_DATABASE: ${POSTGRES_DB}
+      POSTGRESQL_HOST: database
+      PGBOUNCER_DATABASE: ${POSTGRES_DB}
+    ports:
+      - "6432:6432"
+
+  # wal_backup:
+  #   image: bitnami/wal-g:latest
+  #   depends_on:
+  #     - database
+  #   environment:
+  #     WALG_S3_PREFIX: ${WALG_S3_PREFIX}
+
+volumes:
+  db_data:
