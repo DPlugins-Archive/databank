@@ -55,6 +55,15 @@ class Snippet
     private Uuid $uuid;
 
     /**
+     * The slug of plugin that own the snippet.
+     * 
+     * @ORM\Column(type="string", length=255)
+     */
+    #[Groups(["snippet:read", "snippet:write",])]
+    #[ApiFilter(SearchFilter::class, strategy: "exact")]
+    private string $namespace;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     #[Groups(["snippet:read", "snippet:write",])]
@@ -135,6 +144,18 @@ class Snippet
     public function setUuid($uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getNamespace(): ?string
+    {
+        return $this->namespace;
+    }
+
+    public function setNamespace(string $namespace): self
+    {
+        $this->namespace = $namespace;
 
         return $this;
     }

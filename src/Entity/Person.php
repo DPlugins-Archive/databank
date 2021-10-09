@@ -37,7 +37,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     #[Assert\Regex(
-        pattern: '/^[a-zA-Z0-9_]{4,}$/',
+        pattern: '/^[a-zA-Z0-9_]{4,20}$/',
         message: 'Username must be at least 4 characters long and contain only letters, numbers and underscores'
     )]
     private $username;

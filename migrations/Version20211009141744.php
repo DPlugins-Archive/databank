@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211005013107 extends AbstractMigration
+final class Version20211009141744 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -64,7 +64,7 @@ final class Version20211005013107 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6D6315CCED3E8EA5 ON revision (blob_id)');
         $this->addSql('COMMENT ON COLUMN revision.uuid IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN revision.created_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE snippet (id INT NOT NULL, person_id INT NOT NULL, uuid UUID NOT NULL, name VARCHAR(255) NOT NULL, is_public BOOLEAN DEFAULT \'false\' NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, meta JSON DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE snippet (id INT NOT NULL, person_id INT NOT NULL, uuid UUID NOT NULL, namespace VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, is_public BOOLEAN DEFAULT \'false\' NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, meta JSON DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_961C8CD5D17F50A6 ON snippet (uuid)');
         $this->addSql('CREATE INDEX IDX_961C8CD5217BBB47 ON snippet (person_id)');
         $this->addSql('COMMENT ON COLUMN snippet.uuid IS \'(DC2Type:uuid)\'');
