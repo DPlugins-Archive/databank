@@ -15,8 +15,6 @@ services:
     volumes:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./public:/srv/app/public:ro
-    environment:
-      MERCURE_EXTRA_DIRECTIVES: demo /srv/mercure-assets/
 
 ###> symfony/mailer ###
   mailer:

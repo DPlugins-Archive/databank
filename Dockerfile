@@ -1,5 +1,3 @@
-# https://github.com/api-platform/api-platform/commit/04b0b30a545acb5bebbe2dd76bb4e3d6aac69a5a#diff-21ee93e31c9cec7a5f33b680622da377c451b62b6c44eac6d9550eade41beb47
-
 # the different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
@@ -8,6 +6,30 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.0
 ARG CADDY_VERSION=2
+ARG NODE_VERSION=16
+
+# "node" stage
+FROM node:${NODE_VERSION}-alpine AS symfony_node
+
+WORKDIR /srv/app
+
+# build for production
+ARG NODE_ENV=prod
+
+COPY .yarn .yarn
+COPY assets assets
+COPY templates templates
+COPY package.json .
+COPY yarn.lock .
+COPY .yarnrc.yml .
+COPY webpack.config.js .
+COPY postcss.config.js .
+COPY tailwind.config.js .
+
+RUN set -eux; \
+	yarn --version; \
+	yarn install; \
+	yarn run build
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
@@ -90,6 +112,7 @@ RUN set -eux; \
 
 # copy only specifically what we need
 COPY . .
+COPY --from=symfony_node /srv/app/public/build public/build
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
@@ -107,27 +130,25 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-ENV SYMFONY_PHPUNIT_VERSION=9
-
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
 # "caddy" stage
 # depends on the "php" stage above
-FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
+# FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
 
 # install Mercure and Vulcain modules
-RUN xcaddy build \
-    --with github.com/dunglas/mercure \
-    --with github.com/dunglas/mercure/caddy \
-    --with github.com/dunglas/vulcain \
-    --with github.com/dunglas/vulcain/caddy
+# RUN xcaddy build \
+#     --with github.com/dunglas/mercure \
+#     --with github.com/dunglas/mercure/caddy \
+#     --with github.com/dunglas/vulcain \
+#     --with github.com/dunglas/vulcain/caddy
 
 FROM caddy:${CADDY_VERSION} AS symfony_caddy
 
 WORKDIR /srv/app
 
-COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
-COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
+# COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
+# COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=symfony_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
