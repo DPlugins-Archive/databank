@@ -47,10 +47,10 @@
         "version": "3.1.2"
     },
     "doctrine/data-fixtures": {
-        "version": "1.5.0"
+        "version": "1.5.1"
     },
     "doctrine/dbal": {
-        "version": "2.13.3"
+        "version": "2.13.4"
     },
     "doctrine/deprecations": {
         "version": "v0.5.3"
@@ -112,7 +112,7 @@
         "version": "3.2.1"
     },
     "doctrine/orm": {
-        "version": "2.9.5"
+        "version": "2.10.1"
     },
     "doctrine/persistence": {
         "version": "2.2.2"
@@ -142,22 +142,22 @@
         "version": "7.3.0"
     },
     "guzzlehttp/promises": {
-        "version": "1.4.1"
+        "version": "1.5.0"
     },
     "guzzlehttp/psr7": {
-        "version": "2.0.0"
+        "version": "2.1.0"
     },
     "happyr/entity-exists-validation-constraint": {
         "version": "1.0.0"
     },
     "laminas/laminas-code": {
-        "version": "4.4.2"
+        "version": "4.4.3"
     },
     "lcobucci/clock": {
         "version": "2.0.0"
     },
     "lcobucci/jwt": {
-        "version": "4.1.4"
+        "version": "4.1.5"
     },
     "league/uri": {
         "version": "6.5.0"
@@ -181,7 +181,7 @@
         ]
     },
     "monolog/monolog": {
-        "version": "2.3.4"
+        "version": "2.3.5"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
@@ -205,16 +205,16 @@
         "version": "2.53.1"
     },
     "nikic/php-parser": {
-        "version": "v4.12.0"
+        "version": "v4.13.0"
     },
     "payum/core": {
-        "version": "1.6-dev"
+        "version": "1.6.x-dev"
     },
     "payum/iso4217": {
         "version": "1.0.1"
     },
     "payum/paypal-express-checkout-nvp": {
-        "version": "1.6-dev"
+        "version": "1.6.x-dev"
     },
     "payum/payum-bundle": {
         "version": "2.4",
@@ -256,7 +256,7 @@
         "version": "5.2.2"
     },
     "phpdocumentor/type-resolver": {
-        "version": "1.5.0"
+        "version": "1.5.1"
     },
     "phpspec/prophecy": {
         "version": "1.14.0"
@@ -312,7 +312,7 @@
         "version": "1.1.1"
     },
     "psr/log": {
-        "version": "2.0.0"
+        "version": "1.1.4"
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
@@ -485,7 +485,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "5.4",
-            "ref": "3665220abb623938e26f4696573a6eda7100b910"
+            "ref": "d4131812e20853626928e73d3effef44014944c0"
         },
         "files": [
             "./config/packages/cache.yaml",
@@ -649,7 +649,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "5.3",
-            "ref": "227eba5e0c7e8fc4beda3537c3d81dc23ba08182"
+            "ref": "9c4fcf79873f7400c885b90935f7163233615d6f"
         },
         "files": [
             "./config/packages/security.yaml"

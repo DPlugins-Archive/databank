@@ -4,7 +4,7 @@ version: "3.8"
 services:
   php:
     volumes:
-      - .:/srv/app:rw,cached
+      - ./:/srv/app:rw,cached
       - ./docker/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
       # If you develop on Linux, you may use a bind-mounted host directory instead
       # - /srv/app/var
@@ -17,3 +17,9 @@ services:
       - ./public:/srv/app/public:ro
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo /srv/mercure-assets/
+
+###> symfony/mailer ###
+  mailer:
+    image: schickling/mailcatcher
+    ports: [1025, 1080]
+###< symfony/mailer ###

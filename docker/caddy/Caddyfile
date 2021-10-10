@@ -15,15 +15,15 @@ log
 
 # Matches requests for HTML documents, for static files and for Next.js files,
 # except for known API paths and paths with extensions handled by API Platform
-# @pwa expression `(
-#         {header.Accept}.matches("\\btext/html\\b")
-#         && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|\\.(?:json|html$|csv$|ya?ml$|xml$))")
-#     )
-#     || {path} == "/favicon.ico"
-#     || {path} == "/manifest.json"
-#     || {path} == "/robots.txt"
-#     || {path}.startsWith("/_next")
-#     || {path}.startsWith("/sitemap")`
+@pwa expression `(
+        {header.Accept}.matches("\\btext/html\\b")
+        && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|\\.(?:json|html$|csv$|ya?ml$|xml$))")
+    )
+    || {path} == "/favicon.ico"
+    || {path} == "/manifest.json"
+    || {path} == "/robots.txt"
+    || {path}.startsWith("/_next")
+    || {path}.startsWith("/sitemap")`
 
 route {
     root * /srv/app/public
