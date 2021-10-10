@@ -28,9 +28,20 @@ services:
   # wal_backup:
   #   image: bitnami/wal-g:latest
   #   depends_on:
-  #     - database
+  #     - pgbouncer
+  #   restart: on-failure
   #   environment:
+  #     PGHOST: pgbouncer
+  #     PGPORT: 6432
+  #     PGUSER: ${POSTGRES_USER}
+  #     PGPASSWORD: ${POSTGRES_PASSWORD}
+  #     PGDATABASE: ${POSTGRES_DB}
+  #     WALG_CONFIG: /etc/wal-g.d/server-config.json
   #     WALG_S3_PREFIX: ${WALG_S3_PREFIX}
+  #     WALG_S3_PREFIX: ${WALG_S3_PREFIX}
+  #     AWS_ENDPOINT: ${AWS_ENDPOINT}
+  #     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+  #     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
 volumes:
   db_data:
