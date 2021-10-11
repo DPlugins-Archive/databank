@@ -2,6 +2,13 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+index:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'app_dashboard'
+        keepQueryParams: true
+
 payum_all:
     resource: '@PayumBundle/Resources/config/routing/all.xml'
 

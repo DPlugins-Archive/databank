@@ -16,7 +16,7 @@
 **/Thumbs.db
 .editorconfig
 .env.*.local
-.env.local
+# .env.local
 .env.local.php
 .php_cs.cache
 .idea/
@@ -27,7 +27,7 @@
 !.yarn/releases/
 !.yarn/sdks/
 !.yarn/versions/
-config/jwt/*.pem
+# config/jwt/*.pem
 bin/*
 !bin/console
 build/
