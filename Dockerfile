@@ -121,9 +121,6 @@ RUN set -eux; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
 
-RUN set -eux; \
-	php bin/console lexik:jwt:generate-keypair --skip-if-exists
-
 VOLUME /srv/app/var
 
 COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
