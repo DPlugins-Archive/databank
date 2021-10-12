@@ -10,19 +10,6 @@ services:
       # - /srv/app/var
     environment:
       APP_ENV: dev
-    ports:
-      # HTTP
-      - target: 80
-        published: 80
-        protocol: tcp
-      # HTTPS
-      - target: 443
-        published: 443
-        protocol: tcp
-      # HTTP/3
-      # - target: 443
-      #   published: 443
-      #   protocol: udp
 
   caddy:
     volumes:
