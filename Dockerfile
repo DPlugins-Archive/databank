@@ -132,7 +132,7 @@ COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 COPY docker/php/cron.d/cron /etc/cron.d/cron
-RUN chmod 0644 /etc/cron.d/hello-cron
+RUN chmod 0644 /etc/cron.d/cron
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
