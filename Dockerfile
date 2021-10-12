@@ -131,6 +131,9 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
+COPY docker/php/cron.d/cron /etc/cron.d/cron
+RUN chmod 0644 /etc/cron.d/hello-cron
+
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 

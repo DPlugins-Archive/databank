@@ -47,6 +47,12 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 			php bin/console doctrine:migrations:migrate --no-interaction
 		fi
 	fi
+
+	# cron job
+	crontab /etc/cron.d/cron
+	touch var/log/cron.log
+	cron && tail -f var/log/cron.log
+
 fi
 
 exec docker-php-entrypoint "$@"
