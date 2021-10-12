@@ -112,7 +112,6 @@ RUN set -eux; \
 
 # copy only specifically what we need
 COPY . .
-COPY --from=symfony_node /srv/app/public/build public/build
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
@@ -133,6 +132,8 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 
 COPY docker/php/cron.d/cron /etc/cron.d/cron
 RUN chmod 0644 /etc/cron.d/cron
+
+COPY --from=symfony_node /srv/app/public/build public/build
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
