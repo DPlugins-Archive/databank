@@ -140,20 +140,21 @@ CMD ["php-fpm"]
 
 # "caddy" stage
 # depends on the "php" stage above
-# FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
+FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
 
 # install Mercure and Vulcain modules
-# RUN xcaddy build \
+RUN xcaddy build \
 #     --with github.com/dunglas/mercure \
 #     --with github.com/dunglas/mercure/caddy \
 #     --with github.com/dunglas/vulcain \
-#     --with github.com/dunglas/vulcain/caddy
+#     --with github.com/dunglas/vulcain/caddy \
+    --with github.com/caddy-dns/cloudflare
 
 FROM caddy:${CADDY_VERSION} AS symfony_caddy
 
 WORKDIR /srv/app
 
 # COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
-# COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
+COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=symfony_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
