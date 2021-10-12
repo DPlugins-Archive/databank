@@ -51,7 +51,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# cron job
 	crontab /etc/cron.d/cron
 	touch var/log/cron.log
-	cron && tail -f var/log/cron.log
+	crond && tail -f var/log/cron.log
 
 fi
 
