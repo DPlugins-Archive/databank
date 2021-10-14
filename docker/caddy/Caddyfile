@@ -10,7 +10,7 @@
 }
 
 tls {
-	dns cloudflare {env.CF_API_TOKEN}
+    dns cloudflare {env.CF_API_TOKEN}
 }
 
 {$SERVER_NAME}
