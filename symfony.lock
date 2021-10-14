@@ -16,6 +16,12 @@
             "./src/Entity/.gitignore"
         ]
     },
+    "async-aws/core": {
+        "version": "1.12.0"
+    },
+    "async-aws/ses": {
+        "version": "1.4.1"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -389,6 +395,15 @@
             "./config/packages/stof_doctrine_extensions.yaml"
         ]
     },
+    "symfony/amazon-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "9648db3ecae5c8a6b1a5f74715d3907124348815"
+        }
+    },
     "symfony/amqp-messenger": {
         "version": "5.4.x-dev"
     },
@@ -503,6 +518,9 @@
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "5.4.x-dev"
     },
     "symfony/http-client-contracts": {
         "version": "v2.4.0"
