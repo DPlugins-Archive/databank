@@ -34,5 +34,5 @@ docker/db/data/
 node_modules/
 public/build/
 public/bundles/
-# var/
+var/
 vendor/
