@@ -79,7 +79,7 @@ RUN set -eux; \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)"; \
-	apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
+	apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
 
@@ -99,7 +99,7 @@ VOLUME /var/run/php
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
-WORKDIR /srv/app
+WORKDIR /srv/api
 
 # build for production
 ARG APP_ENV=prod
@@ -119,7 +119,7 @@ RUN set -eux; \
 	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
-VOLUME /srv/app/var
+VOLUME /srv/api/var
 
 COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
 RUN chmod +x /usr/local/bin/docker-healthcheck
@@ -129,13 +129,12 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-COPY docker/php/cron.d/cron /etc/cron.d/cron
-RUN chmod 0644 /etc/cron.d/cron
-
 ENV SYMFONY_PHPUNIT_VERSION=9
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
+
+COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 
 # "caddy" stage
 # depends on the "php" stage above
@@ -146,15 +145,12 @@ RUN xcaddy build \
     --with github.com/dunglas/mercure \
     --with github.com/dunglas/mercure/caddy \
     --with github.com/dunglas/vulcain \
-    --with github.com/dunglas/vulcain/caddy \
-    --with github.com/caddy-dns/cloudflare
+    --with github.com/dunglas/vulcain/caddy
 
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
-WORKDIR /srv/app
+WORKDIR /srv/api
 
-# COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
-COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
 COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=api_platform_php /srv/app/public public/
-COPY --from=api_platform_node /usr/src/frontend/public/build public/build
+COPY --from=api_platform_php /srv/api/public public/
+COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
