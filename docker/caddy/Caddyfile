@@ -53,7 +53,7 @@ route {
     # In this case, they will be handled by the PHP app.
     # reverse_proxy @pwa http://{$PWA_UPSTREAM}
 
-    php_fastcgi unix:/var/run/php/php-fpm.sock
+    php_fastcgi unix//var/run/php/php-fpm.sock
     encode zstd gzip
     file_server
 }
