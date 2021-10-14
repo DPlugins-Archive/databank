@@ -20,7 +20,6 @@
 .env.local.php
 .php_cs.cache
 .idea/
-.symfony/
 .yarn/*
 !.yarn/patches/
 !.yarn/plugins/
@@ -35,6 +34,5 @@ docker/db/data/
 node_modules/
 public/build/
 public/bundles/
-tests/
 var/
 vendor/

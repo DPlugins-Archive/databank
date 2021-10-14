@@ -5,7 +5,7 @@ services:
   php:
     volumes:
       - ./:/srv/app:rw,cached
-      - ./docker/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
+      - ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
       # If you develop on Linux, you may use a bind-mounted host directory instead
       # - /srv/app/var
     environment:

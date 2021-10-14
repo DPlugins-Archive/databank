@@ -9,9 +9,9 @@ ARG CADDY_VERSION=2
 ARG NODE_VERSION=16
 
 # "node" stage
-FROM node:${NODE_VERSION}-alpine AS symfony_node
+FROM node:${NODE_VERSION}-alpine AS api_platform_node
 
-WORKDIR /srv/app
+WORKDIR /usr/src/frontend
 
 # build for production
 ARG NODE_ENV=prod
@@ -32,7 +32,7 @@ RUN set -eux; \
 	yarn run build
 
 # "php" stage
-FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
+FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -48,7 +48,7 @@ RUN apk add --no-cache \
 # see https://github.com/docker-library/php/issues/240#issuecomment-763112749
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
-ARG APCU_VERSION=5.1.21
+ARG APCU_VERSION=5.1.20
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -86,19 +86,14 @@ RUN set -eux; \
 ###> recipes ###
 ###< recipes ###
 
-COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
-RUN chmod +x /usr/local/bin/docker-healthcheck
-
-HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
-COPY docker/php/conf.d/symfony.prod.ini $PHP_INI_DIR/conf.d/symfony.ini
+COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 VOLUME /var/run/php
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -124,37 +119,42 @@ RUN set -eux; \
 	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
-
 VOLUME /srv/app/var
 
-COPY docker/php/cron.d/cron /etc/cron.d/cron
-RUN chmod 0644 /etc/cron.d/cron
+COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
+RUN chmod +x /usr/local/bin/docker-healthcheck
+
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-COPY --from=symfony_node /srv/app/public/build public/build
+COPY docker/php/cron.d/cron /etc/cron.d/cron
+RUN chmod 0644 /etc/cron.d/cron
+
+ENV SYMFONY_PHPUNIT_VERSION=9
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
 # "caddy" stage
 # depends on the "php" stage above
-FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
+FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
 # install Mercure and Vulcain modules
 RUN xcaddy build \
-#     --with github.com/dunglas/mercure \
-#     --with github.com/dunglas/mercure/caddy \
-#     --with github.com/dunglas/vulcain \
-#     --with github.com/dunglas/vulcain/caddy \
+    --with github.com/dunglas/mercure \
+    --with github.com/dunglas/mercure/caddy \
+    --with github.com/dunglas/vulcain \
+    --with github.com/dunglas/vulcain/caddy \
     --with github.com/caddy-dns/cloudflare
 
-FROM caddy:${CADDY_VERSION} AS symfony_caddy
+FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
 WORKDIR /srv/app
 
 # COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
-COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=symfony_php /srv/app/public public/
+COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
+COPY --from=api_platform_php /srv/app/public public/
+COPY --from=api_platform_node /usr/src/frontend/public/build public/build
