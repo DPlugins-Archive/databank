@@ -1,13 +1,13 @@
-# {
-#     # Debug
-#     {$DEBUG}
-#     # HTTP/3 support
-#     servers {
-#         protocol {
-#             experimental_http3
-#         }
-#     }
-# }
+{
+    # Debug
+    {$DEBUG}
+    # HTTP/3 support
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+}
 
 {$SERVER_NAME}
 
@@ -53,8 +53,7 @@ route {
     # In this case, they will be handled by the PHP app.
     # reverse_proxy @pwa http://{$PWA_UPSTREAM}
 
-    # php_fastcgi unix//var/run/php/php-fpm.sock
-    php_fastcgi php:9000
+    php_fastcgi unix:/var/run/php/php-fpm.sock
     encode zstd gzip
     file_server
 }
