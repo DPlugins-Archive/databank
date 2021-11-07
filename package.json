@@ -25,5 +25,5 @@
         "@tailwindcss/typography": "^0.4.1",
         "alpinejs": "^3.4.0"
     },
-    "packageManager": "yarn@3.0.2"
+    "packageManager": "yarn@3.1.0"
 }
