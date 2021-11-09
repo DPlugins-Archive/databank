@@ -41,7 +41,7 @@ class Plan
 
     /**
      * The unit of the duration. available values: second, hour, day, week, month, year.
-     * 
+     *
      * @ORM\Column(type="string", length=180)
      */
     private $unit;

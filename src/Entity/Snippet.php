@@ -22,15 +22,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=SnippetRepository::class)
  */
 #[ApiResource(
-    attributes: ["security" => "is_granted('ROLE_USER')",],
-    collectionOperations: ["get", "post",],
+    attributes: ['security' => "is_granted('ROLE_USER')"],
+    collectionOperations: ['get', 'post'],
     itemOperations: [
-        "get" => ["security" => "object.getIsPublic() == true or (is_granted('ROLE_USER') and object.getPerson() == user)",],
-        "put" => ["security" => "is_granted('ROLE_USER') and object.getPerson() == user",],
-        "delete" => ["security" => "is_granted('ROLE_USER') and object.getPerson() == user",],
+        'get' => ['security' => "object.getIsPublic() == true or (is_granted('ROLE_USER') and object.getPerson() == user)"],
+        'put' => ['security' => "is_granted('ROLE_USER') and object.getPerson() == user"],
+        'delete' => ['security' => "is_granted('ROLE_USER') and object.getPerson() == user"],
     ],
-    normalizationContext: ["groups" => ["snippet:read",],],
-    denormalizationContext: ["groups" => ["snippet:write",],],
+    normalizationContext: ['groups' => ['snippet:read']],
+    denormalizationContext: ['groups' => ['snippet:write']],
 )]
 class Snippet
 {
@@ -39,7 +39,7 @@ class Snippet
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     #[ApiProperty(
         identifier: false,
         security: "is_granted('ROLE_ADMIN')",
@@ -50,37 +50,37 @@ class Snippet
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     #[ApiProperty(identifier: true)]
     private Uuid $uuid;
 
     /**
      * The slug of plugin that own the snippet.
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(["snippet:read", "snippet:write",])]
-    #[ApiFilter(SearchFilter::class, strategy: "exact")]
+    #[Groups(['snippet:read', 'snippet:write'])]
+    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private string $namespace;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(["snippet:read", "snippet:write",])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
     private string $name;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    #[Groups(["snippet:read", "snippet:write",])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SnippetIsPublicFilter::class)]
     private bool $isPublic;
 
     /**
      * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
      */
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     #[ApiProperty(push: true)]
     private $blobs;
 
@@ -88,29 +88,29 @@ class Snippet
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
-     * 
+     *
      * @var Tag[]|Collection Available tags for this snippet
      */
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     private iterable $tags;
 
     /**
      * The additional data about this snippet, all your apps extra data you can put in this field.
-     * 
+     *
      * @ORM\Column(type="json", nullable=true)
      */
-    #[Groups(["snippet:read", "snippet:write",])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     private ?array $meta = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    #[Groups(["snippet:read", "snippet:write",])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
     private ?string $description;
 
@@ -118,7 +118,7 @@ class Snippet
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="snippets")
      * @ORM\JoinColumn(nullable=false)
      */
-    #[Groups(["snippet:read",])]
+    #[Groups(['snippet:read'])]
     #[ApiProperty(
         security: "is_granted('ROLE_USER') and object.getPerson() == user",
     )]

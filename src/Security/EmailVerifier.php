@@ -50,6 +50,7 @@ class EmailVerifier
 
     /**
      * @param \App\Entity\Person $user
+     *
      * @throws VerifyEmailExceptionInterface
      */
     public function handleEmailConfirmation(Request $request, UserInterface $user): void

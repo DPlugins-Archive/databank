@@ -33,6 +33,7 @@ class JWTCreatedEventSubscriber implements \Symfony\Component\EventDispatcher\Ev
 
         $event->setData($payload);
     }
+
     /**
      * @return array<string, mixed>
      */

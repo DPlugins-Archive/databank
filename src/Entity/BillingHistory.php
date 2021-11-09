@@ -11,18 +11,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class BillingHistory
 {
-    const STATUS_PENDING = 'pending';
-    const STATUS_PAID = 'paid';
-    const STATUS_CANCELED = 'canceled';
-    const STATUS_REFUNDED = 'refunded';
-    const STATUS_FAILED = 'failed';
-    const STATUS_UNKNOWN = 'unknown';
-    const STATUS_PROCESSING = 'processing';
-    const STATUS_COMPLETED = 'completed';
-    const STATUS_INVALID = 'invalid';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_PAID = 'paid';
+    public const STATUS_CANCELED = 'canceled';
+    public const STATUS_REFUNDED = 'refunded';
+    public const STATUS_FAILED = 'failed';
+    public const STATUS_UNKNOWN = 'unknown';
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_INVALID = 'invalid';
 
-    const TYPE_DEBIT = 'debit';
-    const TYPE_CREDIT = 'credit';
+    public const TYPE_DEBIT = 'debit';
+    public const TYPE_CREDIT = 'credit';
 
     /**
      * @ORM\Id
@@ -49,7 +49,7 @@ class BillingHistory
 
     /**
      * The type of transaction. available values are: debit, credit.
-     * 
+     *
      * @ORM\Column(type="string", length=180)
      */
     private $type;

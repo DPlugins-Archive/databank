@@ -50,7 +50,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }

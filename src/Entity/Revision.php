@@ -17,9 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     collectionOperations: [],
     itemOperations: [
-        "get" => ["security" => "object.getBlob().getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getBlob().getSnippet().getPerson() == user)",],
+        'get' => ['security' => "object.getBlob().getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getBlob().getSnippet().getPerson() == user)"],
     ],
-    normalizationContext: ["groups" => ["revision:read"],],
+    normalizationContext: ['groups' => ['revision:read']],
 )]
 class Revision
 {
@@ -36,7 +36,7 @@ class Revision
      */
     #[Assert\Uuid]
     #[ApiProperty(identifier: true)]
-    #[Groups(["blob:read", "revision:read",])]
+    #[Groups(['blob:read', 'revision:read'])]
     private Uuid $uuid;
 
     /**
@@ -48,32 +48,32 @@ class Revision
     /**
      * @ORM\Column(type="text")
      */
-    #[Groups(["blob:read", "revision:read",])]
+    #[Groups(['blob:read', 'revision:read'])]
     private ?string $hash;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    #[Groups(["blob:read", "revision:read",])]
+    #[Groups(['blob:read', 'revision:read'])]
     private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="integer", options={"default":0})
      */
-    #[Groups(["blob:read", "revision:read",])]
+    #[Groups(['blob:read', 'revision:read'])]
     private int $size;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    #[Groups(["blob:read", "revision:read",])]
+    #[Groups(['blob:read', 'revision:read'])]
     private string $excerpt;
 
     /**
      * @ORM\Column(type="text")
      */
-    #[Groups(["revision:read",])]
+    #[Groups(['revision:read'])]
     private string $content;
 
     public function getId(): ?int

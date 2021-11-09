@@ -121,12 +121,12 @@ class Billing
     public function setPerson(?Person $person): self
     {
         // unset the owning side of the relation if necessary
-        if ($person === null && $this->person !== null) {
+        if (null === $person && null !== $this->person) {
             $this->person->setBilling(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($person !== null && $person->getBilling() !== $this) {
+        if (null !== $person && $person->getBilling() !== $this) {
             $person->setBilling($this);
         }
 

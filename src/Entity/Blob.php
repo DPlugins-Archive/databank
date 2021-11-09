@@ -18,19 +18,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ApiResource(
     collectionOperations: [
-        "post" => [
-            "security_post_denormalize" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user"
+        'post' => [
+            'security_post_denormalize' => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",
         ],
     ],
     itemOperations: [
-        "get" => ["security" => "object.getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getSnippet().getPerson() == user)",],
-        "put" => ["security" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",],
-        "delete" => ["security" => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",],
+        'get' => ['security' => "object.getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getSnippet().getPerson() == user)"],
+        'put' => ['security' => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user"],
+        'delete' => ['security' => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user"],
     ],
-    normalizationContext: ["groups" => ["blob:read"],],
-    denormalizationContext: ["groups" => ["blob:write",],],
+    normalizationContext: ['groups' => ['blob:read']],
+    denormalizationContext: ['groups' => ['blob:write']],
     attributes: [
-        "order" => ["revisions.createdAt" => "ASC"],
+        'order' => ['revisions.createdAt' => 'ASC'],
     ],
 )]
 class Blob
@@ -48,73 +48,73 @@ class Blob
      */
     #[Assert\Uuid]
     #[ApiProperty(identifier: true)]
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private Uuid $uuid;
 
     /**
      * @ORM\ManyToOne(targetEntity=Snippet::class, inversedBy="blobs")
      * @ORM\JoinColumn(nullable=false)
      */
-    #[Groups(["blob:read", "blob:write",])]
+    #[Groups(['blob:read', 'blob:write'])]
     private ?Snippet $snippet;
 
     /**
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
      */
-    #[Groups(["blob:read",])]
+    #[Groups(['blob:read'])]
     private $revisions;
 
     /**
      * @ORM\Column(type="text")
      */
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private ?string $hash;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private ?\DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="change", field={"meta","content"})
      */
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private ?\DateTimeImmutable $updatedAt;
 
     /**
      * The size of this blob in bytes.
-     * 
+     *
      * @ORM\Column(type="integer", options={"default":0})
      */
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private int $size;
 
     /**
      * The additional data about this blob, all your apps extra data you can put in this field.
-     * 
+     *
      * @ORM\Column(type="json", nullable=true)
      */
-    #[Groups(["blob:read", "blob:write", "snippet:read",])]
+    #[Groups(['blob:read', 'blob:write', 'snippet:read'])]
     private ?array $meta = [];
 
     /**
      * The excerpt of this blob. This is the first few lines of the blob's content for preview purposes.
-     * 
+     *
      * @ORM\Column(type="text", nullable=true)
      */
-    #[Groups(["blob:read", "snippet:read",])]
+    #[Groups(['blob:read', 'snippet:read'])]
     private ?string $excerpt;
 
     /**
      * The content of this blob. This is where you can store your snippet code content.
-     * 
+     *
      * @ORM\Column(type="text")
      */
     #[Assert\NotBlank]
-    #[Groups(["blob:read", "blob:write"])]
+    #[Groups(['blob:read', 'blob:write'])]
     private string $content;
 
     public function __construct()

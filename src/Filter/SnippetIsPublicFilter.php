@@ -2,11 +2,10 @@
 
 namespace App\Filter;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\BooleanFilterTrait;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Core\Exception\InvalidArgumentException;
-use Doctrine\DBAL\Types\Type as DBALType;
 use Doctrine\ORM\QueryBuilder;
 
 /**

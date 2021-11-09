@@ -93,6 +93,7 @@ class PaymentController extends AbstractController
             'subscription_notice',
             sprintf('You have successfully purchased %s plan', $plan->getName())
         );
+
         return $this->redirectToRoute('app_dashboard');
     }
 

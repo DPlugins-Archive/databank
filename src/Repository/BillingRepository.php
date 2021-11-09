@@ -80,7 +80,7 @@ class BillingRepository extends ServiceEntityRepository
             ->andWhere('b.expiredAt < :graced_date')
             ->setParameters([
                 'where_is_active' => true,
-                'graced_date' => CarbonImmutable::now()->subDays(self::DAYS_GRACE_PERIOD)
+                'graced_date' => CarbonImmutable::now()->subDays(self::DAYS_GRACE_PERIOD),
             ]);
     }
 
@@ -94,7 +94,7 @@ class BillingRepository extends ServiceEntityRepository
             ->setParameters([
                 'where_is_active' => true,
                 'due_date' => CarbonImmutable::now(),
-                'graced_date' => CarbonImmutable::now()->subDays(self::DAYS_GRACE_PERIOD)
+                'graced_date' => CarbonImmutable::now()->subDays(self::DAYS_GRACE_PERIOD),
             ]);
     }
 

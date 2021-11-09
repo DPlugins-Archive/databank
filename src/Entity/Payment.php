@@ -43,12 +43,12 @@ class Payment extends BasePayment
     public function setBillingHistory(?BillingHistory $billingHistory): self
     {
         // unset the owning side of the relation if necessary
-        if ($billingHistory === null && $this->billingHistory !== null) {
+        if (null === $billingHistory && null !== $this->billingHistory) {
             $this->billingHistory->setPayment(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($billingHistory !== null && $billingHistory->getPayment() !== $this) {
+        if (null !== $billingHistory && $billingHistory->getPayment() !== $this) {
             $billingHistory->setPayment($this);
         }
 
