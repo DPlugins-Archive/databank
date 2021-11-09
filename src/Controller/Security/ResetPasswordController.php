@@ -94,7 +94,7 @@ class ResetPasswordController extends AbstractController
         $token = $this->getTokenFromSession();
         if (null === $token) {
             $this->addFlash('reset_password_error', 'No reset password token found in the URL or in the session.');
-    
+
             return $this->redirectToRoute('app_forgot_password_request');
             // throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
         }

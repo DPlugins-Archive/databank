@@ -14,7 +14,7 @@ class DashboardController extends AbstractController
     #[Route('/app/dashboard', name: 'app_dashboard')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        /** @var Person */
+        /** @var Person $person */
         $person = $this->getUser();
 
         $plans = $doctrine->getRepository(Plan::class)->findAll();
