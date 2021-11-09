@@ -11,10 +11,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ]);
-    // $parameters->set(Option::PARALLEL, true);
 
     $containerConfigurator->import(SetList::SYMFONY);
-
-    $services = $containerConfigurator->services();
-    // $services->set(NoUnusedImportsFixer::class);
 };
