@@ -17,13 +17,8 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegisterController extends AbstractController
 {
-    private $emailVerifier;
-    private $doctrine;
-
-    public function __construct(EmailVerifier $emailVerifier, ManagerRegistry $doctrine)
+    public function __construct(private EmailVerifier $emailVerifier, private ManagerRegistry $doctrine)
     {
-        $this->emailVerifier = $emailVerifier;
-        $this->doctrine = $doctrine;
     }
 
     #[Route('/register', name: 'app_register')]

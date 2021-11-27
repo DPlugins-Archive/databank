@@ -17,12 +17,12 @@ class Payment extends BasePayment
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\OneToOne(targetEntity=BillingHistory::class, mappedBy="payment", cascade={"persist", "remove"})
      */
-    private $billingHistory;
+    private ?BillingHistory $billingHistory = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)

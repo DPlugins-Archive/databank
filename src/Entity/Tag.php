@@ -39,13 +39,13 @@ class Tag
     /**
      * @ORM\ManyToMany(targetEntity=Snippet::class, inversedBy="tags")
      */
-    private $snippets;
+    private array|ArrayCollection|Collection $snippets;
 
     /**
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="tags")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $person;
+    private ?Person $person = null;
 
     public function __construct()
     {

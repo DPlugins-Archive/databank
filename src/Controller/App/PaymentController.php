@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Happyr\Validator\Constraint\EntityExist;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetHumanStatus;
+use Payum\ISO4217\Currency;
 use Payum\ISO4217\ISO4217;
 use Payum\Paypal\ExpressCheckout\Nvp\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,13 +24,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PaymentController extends AbstractController
 {
-    private $currency;
-    private $validator;
+    private Currency $currency;
 
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
         $this->currency = (new ISO4217())->findByAlpha3('USD');
-        $this->validator = $validator;
     }
 
     #[Route('/app/payment/buy-subscription', name: 'app_payment_buy_subscription', methods: ['POST'])]
@@ -127,7 +126,7 @@ class PaymentController extends AbstractController
         $payment = $storage->create();
 
         $payment->setNumber(uniqid());
-        $payment->setTotalAmount($amount * pow(10, $this->currency->getExp()));
+        $payment->setTotalAmount($amount * 10 ** $this->currency->getExp());
         $payment->setCurrencyCode($this->currency->getAlpha3());
         $payment->setClientId($person->getId());
         $payment->setClientEmail($person->getEmail());
@@ -172,13 +171,13 @@ class PaymentController extends AbstractController
             $person = $this->getUser();
 
             $billing = $person->getBilling();
-            $billing->setCredit($billing->getCredit() + ($payment->getTotalAmount() / pow(10, $this->currency->getExp())));
+            $billing->setCredit($billing->getCredit() + ($payment->getTotalAmount() / 10 ** $this->currency->getExp()));
 
             $billingHistory = new BillingHistory();
             $billingHistory->setType(BillingHistory::TYPE_DEBIT);
             $billingHistory->setBilling($billing);
             $billingHistory->setPayment($payment);
-            $billingHistory->setAmount($payment->getTotalAmount() / pow(10, $this->currency->getExp()));
+            $billingHistory->setAmount($payment->getTotalAmount() / 10 ** $this->currency->getExp());
             $billingHistory->setDescription('Deposit via PayPal');
             $billingHistory->setStatus(BillingHistory::STATUS_COMPLETED);
 

@@ -24,14 +24,14 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     #[Assert\NotBlank]
     #[Assert\Email]
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -40,7 +40,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         pattern: '/^[a-zA-Z0-9_]{4,20}$/',
         message: 'Username must be at least 4 characters long and contain only letters, numbers and underscores'
     )]
-    private $username;
+    private ?string $username = null;
 
     /**
      * @ORM\Column(type="json")
@@ -51,12 +51,12 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Billing::class, inversedBy="person", cascade={"persist", "remove"})
      */
-    private $billing;
+    private ?Billing $billing = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -72,12 +72,12 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="person", orphanRemoval=true)
      */
-    private $tags;
+    private array|ArrayCollection|Collection $tags;
 
     /**
      * @ORM\OneToMany(targetEntity=Snippet::class, mappedBy="person", orphanRemoval=true)
      */
-    private $snippets;
+    private array|ArrayCollection|Collection $snippets;
 
     public function __construct()
     {

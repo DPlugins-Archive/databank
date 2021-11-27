@@ -43,20 +43,20 @@ class Revision
      * @ORM\ManyToOne(targetEntity=Blob::class, inversedBy="revisions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Blob $blob;
+    private ?Blob $blob = null;
 
     /**
      * @ORM\Column(type="text")
      */
     #[Groups(['blob:read', 'revision:read'])]
-    private ?string $hash;
+    private ?string $hash = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     #[Groups(['blob:read', 'revision:read'])]
-    private ?\DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * @ORM\Column(type="integer", options={"default":0})

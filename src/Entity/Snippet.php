@@ -82,14 +82,14 @@ class Snippet
      */
     #[Groups(['snippet:read'])]
     #[ApiProperty(push: true)]
-    private $blobs;
+    private array|ArrayCollection|Collection $blobs;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     #[Groups(['snippet:read'])]
-    private ?\DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
@@ -112,7 +112,7 @@ class Snippet
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="snippets")

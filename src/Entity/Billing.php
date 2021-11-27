@@ -17,12 +17,12 @@ class Billing
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="float", options={"default":0})
      */
-    private $credit;
+    private ?float $credit = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
@@ -37,12 +37,12 @@ class Billing
     /**
      * @ORM\ManyToOne(targetEntity=Plan::class, inversedBy="billings")
      */
-    private $plan;
+    private ?Plan $plan = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Person::class, mappedBy="billing", cascade={"persist", "remove"})
      */
-    private $person;
+    private ?Person $person = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -53,7 +53,7 @@ class Billing
      * @ORM\OneToMany(targetEntity=BillingHistory::class, mappedBy="billing", orphanRemoval=true)
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
-    private $billingHistories;
+    private array|ArrayCollection|Collection $billingHistories;
 
     public function __construct()
     {

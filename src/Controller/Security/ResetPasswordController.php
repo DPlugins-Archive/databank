@@ -25,15 +25,8 @@ class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
 
-    private $resetPasswordHelper;
-    private $doctrine;
-    private $translator;
-
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, ManagerRegistry $doctrine, TranslatorInterface $translator)
+    public function __construct(private ResetPasswordHelperInterface $resetPasswordHelper, private ManagerRegistry $doctrine, private TranslatorInterface $translator)
     {
-        $this->resetPasswordHelper = $resetPasswordHelper;
-        $this->doctrine = $doctrine;
-        $this->translator = $translator;
     }
 
     /**
@@ -153,7 +146,7 @@ class ResetPasswordController extends AbstractController
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
-        } catch (ResetPasswordExceptionInterface $e) {
+        } catch (ResetPasswordExceptionInterface) {
             // If you want to tell the user why a reset email was not sent, uncomment
             // the lines below and change the redirect to 'app_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.

@@ -29,12 +29,12 @@ class BillingHistory
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $amount;
+    private ?float $amount = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -45,30 +45,30 @@ class BillingHistory
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * The type of transaction. available values are: debit, credit.
      *
      * @ORM\Column(type="string", length=180)
      */
-    private $type;
+    private ?string $type = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Billing::class, inversedBy="billingHistories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $billing;
+    private ?Billing $billing = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Payment::class, inversedBy="billingHistory", cascade={"persist", "remove"})
      */
-    private $payment;
+    private ?Payment $payment = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private ?string $status = null;
 
     public function getId(): ?int
     {

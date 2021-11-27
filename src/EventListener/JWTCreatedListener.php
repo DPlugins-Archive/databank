@@ -2,11 +2,11 @@
 
 namespace App\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Entity\Billing;
 use App\Repository\BillingRepository;
 use Carbon\CarbonImmutable;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class JWTCreatedEventSubscriber implements EventSubscriberInterface
 {

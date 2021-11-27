@@ -12,11 +12,8 @@ use Symfony\Component\Security\Core\Security;
 
 class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct(private Security $security)
     {
-        $this->security = $security;
     }
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?string $operationName = null): void
@@ -30,6 +27,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
+        $snippetRootAlias = null;
         if ($this->security->isGranted('ROLE_ADMIN') || null === $user = $this->security->getUser()) {
             return;
         }
@@ -44,7 +42,7 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
                 // no break
 
             case Snippet::class:
-                $snippetRootAlias = $snippetRootAlias ?? $queryBuilder->getRootAliases()[0];
+                $snippetRootAlias ??= $queryBuilder->getRootAliases()[0];
                 $queryBuilder->andWhere(sprintf('%s.person = :current_user', $snippetRootAlias));
                 $queryBuilder->setParameter('current_user', $user->getId());
                 break;

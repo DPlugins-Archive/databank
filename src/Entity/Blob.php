@@ -56,33 +56,33 @@ class Blob
      * @ORM\JoinColumn(nullable=false)
      */
     #[Groups(['blob:read', 'blob:write'])]
-    private ?Snippet $snippet;
+    private ?Snippet $snippet = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
      */
     #[Groups(['blob:read'])]
-    private $revisions;
+    private array|ArrayCollection|Collection $revisions;
 
     /**
      * @ORM\Column(type="text")
      */
     #[Groups(['blob:read', 'snippet:read'])]
-    private ?string $hash;
+    private ?string $hash = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     #[Groups(['blob:read', 'snippet:read'])]
-    private ?\DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="change", field={"meta","content"})
      */
     #[Groups(['blob:read', 'snippet:read'])]
-    private ?\DateTimeImmutable $updatedAt;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * The size of this blob in bytes.
@@ -106,7 +106,7 @@ class Blob
      * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['blob:read', 'snippet:read'])]
-    private ?string $excerpt;
+    private ?string $excerpt = null;
 
     /**
      * The content of this blob. This is where you can store your snippet code content.

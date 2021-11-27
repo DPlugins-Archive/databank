@@ -17,39 +17,39 @@ class Plan
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $slug;
+    private ?string $slug = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $price;
+    private ?float $price = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $duration;
+    private ?int $duration = null;
 
     /**
      * The unit of the duration. available values: second, hour, day, week, month, year.
      *
      * @ORM\Column(type="string", length=180)
      */
-    private $unit;
+    private ?string $unit = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Billing::class, mappedBy="plan")
      */
-    private $billings;
+    private array|ArrayCollection|Collection $billings;
 
     public function __construct()
     {
