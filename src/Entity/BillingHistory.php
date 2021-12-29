@@ -61,11 +61,6 @@ class BillingHistory
     private ?Billing $billing = null;
 
     /**
-     * @ORM\OneToOne(targetEntity=Payment::class, inversedBy="billingHistory", cascade={"persist", "remove"})
-     */
-    private ?Payment $payment = null;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $status = null;
@@ -131,18 +126,6 @@ class BillingHistory
     public function setBilling(?Billing $billing): self
     {
         $this->billing = $billing;
-
-        return $this;
-    }
-
-    public function getPayment(): ?Payment
-    {
-        return $this->payment;
-    }
-
-    public function setPayment(?Payment $payment): self
-    {
-        $this->payment = $payment;
 
         return $this;
     }

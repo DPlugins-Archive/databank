@@ -132,6 +132,8 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return string the hashed password for this user
+     * 
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string

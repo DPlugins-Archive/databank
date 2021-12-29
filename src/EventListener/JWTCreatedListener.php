@@ -6,9 +6,8 @@ use App\Entity\Billing;
 use App\Repository\BillingRepository;
 use Carbon\CarbonImmutable;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class JWTCreatedEventSubscriber implements EventSubscriberInterface
+class JWTCreatedListener
 {
     public function onJWTCreated(JWTCreatedEvent $event)
     {
@@ -33,13 +32,5 @@ class JWTCreatedEventSubscriber implements EventSubscriberInterface
         $payload['exp'] = $exp->getTimestamp();
 
         $event->setData($payload);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return ['lexik_jwt_authentication.on_jwt_created' => 'onJWTCreated'];
     }
 }

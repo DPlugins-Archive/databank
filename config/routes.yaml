@@ -1,36 +1,10 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+controllers:
+    resource: ../src/Controller/
+    type: annotation
 
-index:
-    path: /
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    defaults:
-        route: 'app_dashboard'
-        keepQueryParams: true
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
 
-payum_all:
-    resource: '@PayumBundle/Resources/config/routing/all.xml'
-
-app_dashboard_shortcut:
-    path: /app
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    defaults:
-        route: 'app_dashboard'
 api_login_check:
-    path: /authentication_token
-    methods: ['POST']
-
-redirect_digitalocean:
-    path: /redirect/digitalocean
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    defaults:
-        path: 'https://www.digitalocean.com/?refcode=acb41ca21dc2&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge'
-        permanent: true
-
-redirect_hetzner:
-    path: /redirect/hetzner
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    defaults:
-        path: 'https://hetzner.cloud/?ref=J37mHc19fUpr'
-        permanent: true
+    path: /api/login_check
