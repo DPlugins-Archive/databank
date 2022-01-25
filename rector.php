@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
 
     $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
     $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_60);
     $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
 };
