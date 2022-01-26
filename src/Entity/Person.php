@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PersonRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Person implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -45,7 +45,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -67,7 +67,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVerified = false;
+    private bool $isVerified = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="person", orphanRemoval=true)
@@ -133,7 +133,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @return string the hashed password for this user
-     * 
+     *
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string

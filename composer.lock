@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01f249c935777e18bc3b2ce18df0cc53",
+    "content-hash": "f51dba36d53fc45fd88beb2f73a81dfd",
     "packages": [
         {
             "name": "api-platform/core",
@@ -10853,21 +10853,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.12.13",
+            "version": "0.12.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "3132cdf7ead96ad98ab7331028083f4ef6e41ee9"
+                "reference": "e923bcd0d675dc4d8746da0554089b484044d0b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/3132cdf7ead96ad98ab7331028083f4ef6e41ee9",
-                "reference": "3132cdf7ead96ad98ab7331028083f4ef6e41ee9",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/e923bcd0d675dc4d8746da0554089b484044d0b5",
+                "reference": "e923bcd0d675dc4d8746da0554089b484044d0b5",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1|^8.0",
-                "phpstan/phpstan": "^1.4"
+                "phpstan/phpstan": "^1.4.2"
             },
             "conflict": {
                 "phpstan/phpdoc-parser": "<1.2",
@@ -10898,10 +10898,10 @@
             "license": [
                 "MIT"
             ],
-            "description": "Prefixed and PHP 7.1 downgraded version of rector/rector",
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.12.13"
+                "source": "https://github.com/rectorphp/rector/tree/0.12.15"
             },
             "funding": [
                 {
@@ -10909,7 +10909,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-17T09:27:22+00:00"
+            "time": "2022-01-26T12:02:35+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -12414,16 +12414,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "9.4.70",
+            "version": "10.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "9276b0c7a1a5671fc4a067656ab40d0aea42aaca"
+                "reference": "f38070ac6ec8c83ccabc51147c2089890a38ed7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/9276b0c7a1a5671fc4a067656ab40d0aea42aaca",
-                "reference": "9276b0c7a1a5671fc4a067656ab40d0aea42aaca",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/f38070ac6ec8c83ccabc51147c2089890a38ed7c",
+                "reference": "f38070ac6ec8c83ccabc51147c2089890a38ed7c",
                 "shasum": ""
             },
             "require": {
@@ -12453,7 +12453,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/9.4.70"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/10.0.19"
             },
             "funding": [
                 {
@@ -12465,7 +12465,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-02T16:09:04+00:00"
+            "time": "2022-01-26T01:15:43+00:00"
         },
         {
             "name": "theseer/tokenizer",

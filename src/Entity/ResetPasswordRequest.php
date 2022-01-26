@@ -21,15 +21,16 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Person::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    public function __construct(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken)
-    {
-        $this->user = $user;
+    public function __construct(
+        /*
+        * @ORM\ManyToOne(targetEntity=Person::class)
+        * @ORM\JoinColumn(nullable=false)
+        */
+        private object $user,
+        \DateTimeInterface $expiresAt,
+        string $selector,
+        string $hashedToken
+    ) {
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 
