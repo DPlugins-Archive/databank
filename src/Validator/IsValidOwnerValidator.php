@@ -9,7 +9,7 @@ class IsValidOwnerValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint \App\Validator\IsValidOwner */
+        /** @var $constraint \App\Validator\IsValidOwner */
 
         if (null === $value || '' === $value) {
             return;

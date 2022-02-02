@@ -4,17 +4,17 @@ version: "3.8"
 services:
   php:
     volumes:
-      - ./:/srv/app:rw,cached
+      - ./:/srv/api:rw,cached
       - ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
       # If you develop on Linux, you may use a bind-mounted host directory instead
-      # - /srv/app/var
+      # - ./var:/srv/api/var:rw
     environment:
       APP_ENV: dev
 
   caddy:
     volumes:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./public:/srv/app/public:ro
+      - ./public:/srv/api/public:ro
 
 ###> symfony/mailer ###
   mailer:

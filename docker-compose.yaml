@@ -43,7 +43,33 @@ services:
         published: 443
         protocol: udp
 
+  # database:
+  #   image: postgres:${POSTGRES_VERSION:-14}-alpine
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB:-app}
+  #     # You should definitely change the password in production
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+  #     POSTGRES_USER: ${POSTGRES_USER:-symfony}
+  #   volumes:
+  #     - db_data:/var/lib/postgresql/data:rw
+  #     # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+  #     # - /docker/db/data:/var/lib/postgresql/data:rw
+
+  pgbouncer:
+    image: bitnami/pgbouncer:latest
+    depends_on:
+      - database
+    environment:
+      POSTGRESQL_USERNAME: ${POSTGRES_USER:-symfony}
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+      POSTGRESQL_DATABASE: ${POSTGRES_DB:-app}
+      POSTGRESQL_HOST: database
+      PGBOUNCER_DATABASE: ${POSTGRES_DB:-app}
+    ports:
+      - "6432:6432"
+
 volumes:
-  php_socket:
   caddy_data:
   caddy_config:
+  # db_data:
+  php_socket:

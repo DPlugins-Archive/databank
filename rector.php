@@ -3,12 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
-use Rector\Core\ValueObject\PhpVersion;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Symfony\Rector\MethodCall\ContainerGetToConstructorInjectionRector;
-use Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector;
 use Rector\Symfony\Set\SymfonyLevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
