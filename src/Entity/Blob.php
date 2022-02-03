@@ -14,6 +14,8 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Blob resource.
+ * 
  * @ORM\Entity(repositoryClass=BlobRepository::class)
  */
 #[ApiResource(
@@ -36,6 +38,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Blob
 {
     /**
+     * The id of record in the database.
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -44,6 +48,8 @@ class Blob
     private int $id;
 
     /**
+     * The unique identifier of the blob resource.
+     * 
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
@@ -52,6 +58,8 @@ class Blob
     private Uuid $uuid;
 
     /**
+     * The snippet resource who own the blob resource.
+     * 
      * @ORM\ManyToOne(targetEntity=Snippet::class, inversedBy="blobs")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -59,12 +67,16 @@ class Blob
     private ?Snippet $snippet = null;
 
     /**
+     * The revision resources that are associated with the blob resource. A blob resource can have many revision resources.
+     * 
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
      */
     #[Groups(['blob:read'])]
     private array|ArrayCollection|Collection $revisions;
 
     /**
+     * The hash of the blob resource.
+     * 
      * @ORM\Column(type="text")
      */
     #[Groups(['blob:read', 'snippet:read'])]
@@ -85,7 +97,7 @@ class Blob
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
-     * The size of this blob in bytes.
+     * The size of the blob resource in bytes.
      *
      * @ORM\Column(type="integer", options={"default":0})
      */
@@ -93,7 +105,7 @@ class Blob
     private int $size;
 
     /**
-     * The additional data about this blob, all your apps extra data you can put in this field.
+     * The additional data about the blob resource.
      *
      * @ORM\Column(type="json", nullable=true)
      */
@@ -101,7 +113,7 @@ class Blob
     private ?array $meta = [];
 
     /**
-     * The excerpt of this blob. This is the first few lines of the blob's content for preview purposes.
+     * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
      *
      * @ORM\Column(type="text", nullable=true)
      */
@@ -109,7 +121,7 @@ class Blob
     private ?string $excerpt = null;
 
     /**
-     * The content of this blob. This is where you can store your snippet code content.
+     * The content of the blob resource.
      *
      * @ORM\Column(type="text")
      */

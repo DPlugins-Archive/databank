@@ -17,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Secured resource.
+ * Snippet resource.
  *
  * @ORM\Entity(repositoryClass=SnippetRepository::class)
  */
@@ -35,6 +35,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Snippet
 {
     /**
+     * The id of record in the database.
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -47,6 +49,8 @@ class Snippet
     private int $id;
 
     /**
+     * The unique identifier of the snippet resource.
+     * 
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
@@ -55,7 +59,7 @@ class Snippet
     private Uuid $uuid;
 
     /**
-     * The slug of plugin that own the snippet.
+     * The slug of plugin/vendor that own the snippet resource.
      *
      * @ORM\Column(type="string", length=255)
      */
@@ -64,6 +68,8 @@ class Snippet
     private string $namespace;
 
     /**
+     * The name of the snippet resource.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
@@ -71,6 +77,8 @@ class Snippet
     private string $name;
 
     /**
+     * Is the snippet resource accessible to the public? default: false.
+     * 
      * @ORM\Column(type="boolean", options={"default":false})
      */
     #[Groups(['snippet:read', 'snippet:write'])]
@@ -78,6 +86,8 @@ class Snippet
     private bool $isPublic;
 
     /**
+     * The blob resources that are associated with the snippet resource. A snippet resource can have many blob resources.
+     * 
      * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
      */
     #[Groups(['snippet:read'])]
@@ -92,15 +102,17 @@ class Snippet
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
+     * The tag resources that are associated with the snippet resource. A snippet resource can have many tag resources and vice versa.
+     * 
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
-     *
-     * @var Tag[]|Collection Available tags for this snippet
+     * 
+     * @var Tag[]|Collection
      */
-    #[Groups(['snippet:read'])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     private iterable $tags;
 
     /**
-     * The additional data about this snippet, all your apps extra data you can put in this field.
+     * The additional data about the snippet resource.
      *
      * @ORM\Column(type="json", nullable=true)
      */
@@ -108,6 +120,8 @@ class Snippet
     private ?array $meta = [];
 
     /**
+     * The description of the snippet resource. Recommend to use Markdown syntax.
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
@@ -115,6 +129,8 @@ class Snippet
     private ?string $description = null;
 
     /**
+     * The owner of the snippet resource.
+     * 
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="snippets")
      * @ORM\JoinColumn(nullable=false)
      */

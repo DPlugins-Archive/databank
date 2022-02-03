@@ -655,16 +655,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "e927fc2410c8723d053b8032e591cdff76587cdb"
+                "reference": "295082d3750987065912816a9d536c2df735f637"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/e927fc2410c8723d053b8032e591cdff76587cdb",
-                "reference": "e927fc2410c8723d053b8032e591cdff76587cdb",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/295082d3750987065912816a9d536c2df735f637",
+                "reference": "295082d3750987065912816a9d536c2df735f637",
                 "shasum": ""
             },
             "require": {
@@ -673,7 +673,7 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0",
-                "phpstan/phpstan": "^1.2.0",
+                "phpstan/phpstan": "^1.4.1",
                 "phpstan/phpstan-phpunit": "^1",
                 "phpunit/phpunit": "^7.5.20 || ^8.5 || ^9.0",
                 "squizlabs/php_codesniffer": "^3.0",
@@ -725,7 +725,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/common/issues",
-                "source": "https://github.com/doctrine/common/tree/3.2.1"
+                "source": "https://github.com/doctrine/common/tree/3.2.2"
             },
             "funding": [
                 {
@@ -741,20 +741,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-26T22:39:45+00:00"
+            "time": "2022-02-02T09:15:57+00:00"
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "a4b37db6f186b6843474189b424aed6a7cc5de4b"
+                "reference": "5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a4b37db6f186b6843474189b424aed6a7cc5de4b",
-                "reference": "a4b37db6f186b6843474189b424aed6a7cc5de4b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2",
+                "reference": "5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +836,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.3.0"
+                "source": "https://github.com/doctrine/dbal/tree/3.3.1"
             },
             "funding": [
                 {
@@ -852,7 +852,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-18T00:13:52+00:00"
+            "time": "2022-01-30T17:50:59+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1012,16 +1012,16 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "c1b10bc1466e08bba82640e49c7bbcce0c9853c2"
+                "reference": "3393f411ba25ade21969c33f2053220044854d01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/c1b10bc1466e08bba82640e49c7bbcce0c9853c2",
-                "reference": "c1b10bc1466e08bba82640e49c7bbcce0c9853c2",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/3393f411ba25ade21969c33f2053220044854d01",
+                "reference": "3393f411ba25ade21969c33f2053220044854d01",
                 "shasum": ""
             },
             "require": {
@@ -1061,11 +1061,11 @@
                 },
                 {
                     "name": "Doctrine Project",
-                    "homepage": "http://www.doctrine-project.org"
+                    "homepage": "https://www.doctrine-project.org"
                 },
                 {
                     "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony DoctrineMigrationsBundle",
@@ -1077,7 +1077,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineMigrationsBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineMigrationsBundle/tree/3.2.1"
+                "source": "https://github.com/doctrine/DoctrineMigrationsBundle/tree/3.2.2"
             },
             "funding": [
                 {
@@ -1093,7 +1093,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-11T11:08:52+00:00"
+            "time": "2022-02-01T18:08:07+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -1427,16 +1427,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "e17a946a9d3693cc2f3c285e6667522ded237f71"
+                "reference": "e7df670aa9565b435ffec636cebdb4d0a1987f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e17a946a9d3693cc2f3c285e6667522ded237f71",
-                "reference": "e17a946a9d3693cc2f3c285e6667522ded237f71",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e7df670aa9565b435ffec636cebdb4d0a1987f10",
+                "reference": "e7df670aa9565b435ffec636cebdb4d0a1987f10",
                 "shasum": ""
             },
             "require": {
@@ -1513,7 +1513,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
-                "source": "https://github.com/doctrine/migrations/tree/3.4.0"
+                "source": "https://github.com/doctrine/migrations/tree/3.4.1"
             },
             "funding": [
                 {
@@ -1529,20 +1529,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-14T08:19:22+00:00"
+            "time": "2022-01-28T21:58:35+00:00"
         },
         {
             "name": "doctrine/orm",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "bfed8cb6ed448f4ab1ea3fff06e4d6c44439e4ef"
+                "reference": "4b88ce787d3916c8366abf52f6c658a7a27ed3a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/bfed8cb6ed448f4ab1ea3fff06e4d6c44439e4ef",
-                "reference": "bfed8cb6ed448f4ab1ea3fff06e4d6c44439e4ef",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/4b88ce787d3916c8366abf52f6c658a7a27ed3a6",
+                "reference": "4b88ce787d3916c8366abf52f6c658a7a27ed3a6",
                 "shasum": ""
             },
             "require": {
@@ -1572,12 +1572,12 @@
                 "doctrine/annotations": "^1.13",
                 "doctrine/coding-standard": "^9.0",
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
-                "phpstan/phpstan": "1.3.3",
+                "phpstan/phpstan": "1.4.3",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
                 "squizlabs/php_codesniffer": "3.6.2",
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-                "vimeo/psalm": "4.18.1"
+                "vimeo/psalm": "4.19.0"
             },
             "suggest": {
                 "symfony/cache": "Provides cache support for Setup Tool with doctrine/cache 2.0",
@@ -1626,9 +1626,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.11.0"
+                "source": "https://github.com/doctrine/orm/tree/2.11.1"
             },
-            "time": "2022-01-12T13:20:33+00:00"
+            "time": "2022-01-30T21:47:06+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -9526,16 +9526,16 @@
         },
         {
             "name": "symfonycasts/verify-email-bundle",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymfonyCasts/verify-email-bundle.git",
-                "reference": "7b17b150c39d115141cb462862baac9c281a3de9"
+                "reference": "aecd44697f7385178ff84a80f2b51d6318c15497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/7b17b150c39d115141cb462862baac9c281a3de9",
-                "reference": "7b17b150c39d115141cb462862baac9c281a3de9",
+                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/aecd44697f7385178ff84a80f2b51d6318c15497",
+                "reference": "aecd44697f7385178ff84a80f2b51d6318c15497",
                 "shasum": ""
             },
             "require": {
@@ -9569,9 +9569,9 @@
             "description": "Simple, stylish Email Verification for Symfony",
             "support": {
                 "issues": "https://github.com/SymfonyCasts/verify-email-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.7.0"
+                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.8.0"
             },
-            "time": "2021-11-30T17:26:37+00:00"
+            "time": "2022-01-31T15:09:22+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -9857,16 +9857,16 @@
         },
         {
             "name": "willdurand/negotiation",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/willdurand/Negotiation.git",
-                "reference": "04e14f38d4edfcc974114a07d2777d90c98f3d9c"
+                "reference": "68e9ea0553ef6e2ee8db5c1d98829f111e623ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/04e14f38d4edfcc974114a07d2777d90c98f3d9c",
-                "reference": "04e14f38d4edfcc974114a07d2777d90c98f3d9c",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/68e9ea0553ef6e2ee8db5c1d98829f111e623ec2",
+                "reference": "68e9ea0553ef6e2ee8db5c1d98829f111e623ec2",
                 "shasum": ""
             },
             "require": {
@@ -9907,9 +9907,9 @@
             ],
             "support": {
                 "issues": "https://github.com/willdurand/Negotiation/issues",
-                "source": "https://github.com/willdurand/Negotiation/tree/3.0.0"
+                "source": "https://github.com/willdurand/Negotiation/tree/3.1.0"
             },
-            "time": "2020-09-25T08:01:41+00:00"
+            "time": "2022-01-30T20:08:53+00:00"
         }
     ],
     "packages-dev": [
@@ -10369,16 +10369,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.4.3",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "89d10839dbfc95eeb7da656578b4a899ad2b59b1"
+                "reference": "150d1fbd82fb71ff76b3bd7f6ea6006d89c5f0c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89d10839dbfc95eeb7da656578b4a899ad2b59b1",
-                "reference": "89d10839dbfc95eeb7da656578b4a899ad2b59b1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/150d1fbd82fb71ff76b3bd7f6ea6006d89c5f0c3",
+                "reference": "150d1fbd82fb71ff76b3bd7f6ea6006d89c5f0c3",
                 "shasum": ""
             },
             "require": {
@@ -10409,7 +10409,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.4.3"
+                "source": "https://github.com/phpstan/phpstan/tree/1.4.5"
             },
             "funding": [
                 {
@@ -10429,7 +10429,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-28T16:27:17+00:00"
+            "time": "2022-02-02T19:35:10+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12415,16 +12415,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "10.0.19",
+            "version": "10.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "f38070ac6ec8c83ccabc51147c2089890a38ed7c"
+                "reference": "5d161b10eac4e7fc1b225f130f6481bb82844f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/f38070ac6ec8c83ccabc51147c2089890a38ed7c",
-                "reference": "f38070ac6ec8c83ccabc51147c2089890a38ed7c",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/5d161b10eac4e7fc1b225f130f6481bb82844f88",
+                "reference": "5d161b10eac4e7fc1b225f130f6481bb82844f88",
                 "shasum": ""
             },
             "require": {
@@ -12454,7 +12454,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/10.0.19"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/10.0.20"
             },
             "funding": [
                 {
@@ -12466,7 +12466,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-26T01:15:43+00:00"
+            "time": "2022-01-30T20:50:35+00:00"
         },
         {
             "name": "theseer/tokenizer",

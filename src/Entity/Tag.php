@@ -11,11 +11,15 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Tag resource.
+ * 
  * @ORM\Entity(repositoryClass=TagRepository::class)
  */
 class Tag
 {
     /**
+     * The id of record in the database.
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -24,6 +28,8 @@ class Tag
     private int $id;
 
     /**
+     * The unique identifier of the tag resource.
+     * 
      * @ORM\Column(type="uuid", unique=true)
      * @ApiProperty(identifier=true)
      */
@@ -32,16 +38,22 @@ class Tag
     private Uuid $uuid;
 
     /**
+     * The name of the tag resource.
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private string $name;
 
     /**
+     * The snippet resources that are associated with the tag resource. A tag resource can have many snippet resources and vice versa.
+     * 
      * @ORM\ManyToMany(targetEntity=Snippet::class, inversedBy="tags")
      */
     private array|ArrayCollection|Collection $snippets;
 
     /**
+     * The owner of the snippet resource.
+     * 
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="tags")
      * @ORM\JoinColumn(nullable=false)
      */

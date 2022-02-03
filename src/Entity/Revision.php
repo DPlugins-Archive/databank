@@ -12,6 +12,8 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Revision resource.
+ * 
  * @ORM\Entity(repositoryClass=RevisionRepository::class)
  */
 #[ApiResource(
@@ -24,6 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Revision
 {
     /**
+     * The id of record in the database.
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -32,6 +36,8 @@ class Revision
     private int $id;
 
     /**
+     * The unique identifier of the revision resource.
+     * 
      * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
@@ -40,12 +46,16 @@ class Revision
     private Uuid $uuid;
 
     /**
+     * The blob resource who own the revision resource.
+     * 
      * @ORM\ManyToOne(targetEntity=Blob::class, inversedBy="revisions")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Blob $blob = null;
 
     /**
+     * The hash of the revision resource.
+     * 
      * @ORM\Column(type="text")
      */
     #[Groups(['blob:read', 'revision:read'])]
@@ -59,18 +69,24 @@ class Revision
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
+     * The size of the revision resource in bytes.
+     * 
      * @ORM\Column(type="integer", options={"default":0})
      */
     #[Groups(['blob:read', 'revision:read'])]
     private int $size;
 
     /**
+     * The excerpt of the revision resource. This is the first few lines of the revision's content for preview purposes.
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['blob:read', 'revision:read'])]
     private string $excerpt;
 
     /**
+     * The content of the revision resource.
+     * 
      * @ORM\Column(type="text")
      */
     #[Groups(['revision:read'])]

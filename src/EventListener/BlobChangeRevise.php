@@ -11,8 +11,6 @@ class BlobChangeRevise
 {
     public function onFlush(OnFlushEventArgs $args): void
     {
-        // TODO: exclusive feature for logged and premium users
-
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
