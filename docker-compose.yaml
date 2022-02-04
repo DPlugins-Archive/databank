@@ -76,5 +76,6 @@ services:
 
 volumes:
   caddy_data:
-  caddy_config: # db_data:
+  caddy_config: 
+  db_data:
   php_socket:
