@@ -51,6 +51,11 @@ class Plan
      */
     private array|ArrayCollection|Collection $billings;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isEnabled = false;
+
     public function __construct()
     {
         $this->billings = new ArrayCollection();
@@ -147,6 +152,18 @@ class Plan
                 $billing->setPlan(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }

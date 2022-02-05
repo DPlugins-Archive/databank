@@ -17,7 +17,9 @@ class DashboardController extends AbstractController
         /** @var Person $person */
         $person = $this->getUser();
 
-        $plans = $doctrine->getRepository(Plan::class)->findAll();
+        $plans = $doctrine->getRepository(Plan::class)->findBy([
+            'isEnabled' => true,
+        ]);
 
         $billingHistories = $person->getBilling()->getBillingHistories()->slice(0, 5);
 
