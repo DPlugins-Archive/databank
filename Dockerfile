@@ -102,6 +102,8 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/api
 
+COPY --from=api_platform_node /usr/src/frontend/public/build public/build
+
 # build for production
 ARG APP_ENV=prod
 
@@ -134,8 +136,6 @@ ENV SYMFONY_PHPUNIT_VERSION=9
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
-
-COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 
 # "caddy" stage
 # depends on the "php" stage above
