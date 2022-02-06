@@ -13,6 +13,7 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
+        "easycorp/easyadmin-bundle": "^4.0",
         "happyr/entity-exists-validation-constraint": "^1.0",
         "lexik/jwt-authentication-bundle": "^2.13",
         "nelmio/cors-bundle": "^2.2",
