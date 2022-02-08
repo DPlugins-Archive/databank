@@ -64,8 +64,8 @@
 						-->
 						<div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="openMenu" @click.outside="openMenu = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">
 							<!-- Active: "bg-gray-100", Not Active: "" -->
-								{# <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-								<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a> #}
+							{# <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+																						<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a> #}
 								<a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> Logout</a>
 						</div>
 					</div>
@@ -92,33 +92,35 @@
 											{{ app.user.email }}
 										</h1>
 									</div>
-									<dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">{# <dt class="sr-only">Username</dt>
-																																																																						                    <dd class="flex items-center text-sm text-gray-500 font-medium sm:mr-6">
-																																																																						                      <!-- Heroicon name: at-symbol -->
-																																																																						                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-																																																																						                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-																																																																						                      </svg>
-																																																																						                      {{ app.user.username }}
-																																																																						                    </dd> #}
+									<dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
+										{# <dt class="sr-only">Username</dt>
+										<dd class="flex items-center text-sm text-gray-500 font-medium sm:mr-6">
+											<!-- Heroicon name: at-symbol -->
+											<svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+											</svg>
+											{{ app.user.username }}
+										</dd> #}
 										{# <dt class="sr-only">Account status</dt>
-																																																																						                    <dd class="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
-																																																																						                      <!-- Heroicon name: solid/check-circle -->
-																																																																						                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																																																																						                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-																																																																						                      </svg>
-																																																																						                      Verified account
-																																																																						                    </dd> #}
+										<dd class="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
+											<!-- Heroicon name: solid/check-circle -->
+											<svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+											</svg>
+											Verified account
+										</dd> #}
 									</dl>
 								</div>
 							</div>
 						</div>
 						<div
-							class="mt-6 flex space-x-3 md:mt-0 md:ml-4">{# <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-																																																								                Add Balance
-																																																								              </button>
-																																																								              <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-																																																								                Send money
-																																																								              </button> #}
+							class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
+							{# <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+							Add Balance
+							</button>
+							<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+							Send money
+							</button> #}
 						</div>
 					</div>
 				</div>
@@ -153,6 +155,9 @@
 											</dd>
 										</dl>
 									</div>
+									<a target="_blank" href="https://the.snippets.guru" class="items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+										Top Up
+									</a>
 								</div>
 							</div>
 						</div>
@@ -250,10 +255,14 @@
 												<div class="relative rounded-md space-y-4">
 													{% for plan in plans %}
 														<div class="flex items-center">
-															<input id="subscription-{{ plan.slug }}" name="subscription" value="{{ plan.slug }}" type="radio" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+															<input id="subscription-{{ plan.slug }}" name="subscription" value="{{ plan.slug }}" type="radio" required {{ loop.first == true ? 'checked' : '' }} class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
 															<label for="subscription-{{ plan.slug }}" class="ml-3">
 																<span class="block text-sm font-medium text-gray-700">
-																	{{ plan.name }}: {{ plan.duration }} {{ plan.unit }} <a class="text-black">( ${{ plan.price }} )</a>
+																	{{ plan.name }}:
+																	{{ plan.duration }}
+																	{{ plan.unit }}
+																	<a class="text-black">( ${{ plan.price }}
+																		)</a>
 																</span>
 															</label>
 														</div>
@@ -308,32 +317,32 @@
 								</thead>
 								<tbody class="bg-white divide-y divide-gray-200">
 									{# <tr class="bg-white">
-																																																															                      <td class="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-																																																															                        <div class="flex">
-																																																															                          <a href="#" class="group inline-flex space-x-2 truncate text-sm">
-																																																															                            <!-- Heroicon name: solid/cash -->
-																																																															                            <svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																																																															                              <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-																																																															                            </svg>
-																																																															                            <p class="text-gray-500 truncate group-hover:text-gray-900">
-																																																															                              Payment to Molly Sanders
-																																																															                            </p>
-																																																															                          </a>
-																																																															                        </div>
-																																																															                      </td>
-																																																															                      <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-																																																															                        <span class="text-gray-900 font-medium">$20,000 </span>
-																																																															                        USD
-																																																															                      </td>
-																																																															                      <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
-																																																															                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize">
-																																																															                          success
-																																																															                        </span>
-																																																															                      </td>
-																																																															                      <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-																																																															                        <time datetime="2020-07-11">July 11, 2020</time>
-																																																															                      </td>
-																																																															                    </tr> #}
+																																																																																	                      <td class="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+																																																																																	                        <div class="flex">
+																																																																																	                          <a href="#" class="group inline-flex space-x-2 truncate text-sm">
+																																																																																	                            <!-- Heroicon name: solid/cash -->
+																																																																																	                            <svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																																																																																	                              <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+																																																																																	                            </svg>
+																																																																																	                            <p class="text-gray-500 truncate group-hover:text-gray-900">
+																																																																																	                              Payment to Molly Sanders
+																																																																																	                            </p>
+																																																																																	                          </a>
+																																																																																	                        </div>
+																																																																																	                      </td>
+																																																																																	                      <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+																																																																																	                        <span class="text-gray-900 font-medium">$20,000 </span>
+																																																																																	                        USD
+																																																																																	                      </td>
+																																																																																	                      <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
+																																																																																	                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize">
+																																																																																	                          success
+																																																																																	                        </span>
+																																																																																	                      </td>
+																																																																																	                      <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+																																																																																	                        <time datetime="2020-07-11">July 11, 2020</time>
+																																																																																	                      </td>
+																																																																																	                    </tr> #}
 
 									<!-- More transactions... -->
 
@@ -378,27 +387,28 @@
 								</tbody>
 							</table>
 							<!-- Pagination -->
-							<nav class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
-								<div
-									class="hidden sm:block">{# <p class="text-sm text-gray-700">
-																																																																						                      Showing
-																																																																						                      <span class="font-medium">1</span>
-																																																																						                      to
-																																																																						                      <span class="font-medium">10</span>
-																																																																						                      of
-																																																																						                      <span class="font-medium">20</span>
-																																																																						                      results
-																																																																						                    </p> #}
-								</div>
-								<div class="flex-1 flex justify-between sm:justify-end">
-									<a class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-										Previous
-									</a>
-									<a class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-										Next
-									</a>
-								</div>
-							</nav>
+							{# <nav class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
+																						<div
+																							class="hidden sm:block">
+																								<p class="text-sm text-gray-700">
+																									Showing
+																									<span class="font-medium">1</span>
+																									to
+																									<span class="font-medium">10</span>
+																									of
+																									<span class="font-medium">20</span>
+																									results
+																								</p>
+																						</div>
+																						<div class="flex-1 flex justify-between sm:justify-end">
+																							<a class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+																								Previous
+																							</a>
+																							<a class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+																								Next
+																							</a>
+																						</div>
+																					</nav> #}
 						</div>
 					</div>
 				</div>
