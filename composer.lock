@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbc23f96e161f62b3d38c06c1cc5f327",
+    "content-hash": "3d8d928880fbf1b1cd265b38454d47fb",
     "packages": [
         {
             "name": "api-platform/core",
@@ -1771,6 +1771,67 @@
             "time": "2021-11-05T11:11:14+00:00"
         },
         {
+            "name": "dragonmantank/cron-expression",
+            "version": "v3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dragonmantank/cron-expression.git",
+                "reference": "be85b3f05b46c39bbc0d95f6c071ddff669510fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/be85b3f05b46c39bbc0d95f6c071ddff669510fa",
+                "reference": "be85b3f05b46c39bbc0d95f6c071ddff669510fa",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "webmozart/assert": "^1.0"
+            },
+            "replace": {
+                "mtdowling/cron-expression": "^1.0"
+            },
+            "require-dev": {
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-webmozart-assert": "^1.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cron\\": "src/Cron/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Tankersley",
+                    "email": "chris@ctankersley.com",
+                    "homepage": "https://github.com/dragonmantank"
+                }
+            ],
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+            "keywords": [
+                "cron",
+                "schedule"
+            ],
+            "support": {
+                "issues": "https://github.com/dragonmantank/cron-expression/issues",
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/dragonmantank",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-18T15:43:28+00:00"
+        },
+        {
             "name": "easycorp/easyadmin-bundle",
             "version": "v4.0.4",
             "source": {
@@ -2175,6 +2236,132 @@
                 "wiki": "https://github.com/Atlantic18/DoctrineExtensions/tree/main/doc"
             },
             "time": "2022-01-10T21:29:33+00:00"
+        },
+        {
+            "name": "guikingone/scheduler-bundle",
+            "version": "0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guikingone/SchedulerBundle.git",
+                "reference": "7be5194edd17844aeea04fd33c6033260d2c819d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guikingone/SchedulerBundle/zipball/7be5194edd17844aeea04fd33c6033260d2c819d",
+                "reference": "7be5194edd17844aeea04fd33c6033260d2c819d",
+                "shasum": ""
+            },
+            "require": {
+                "dragonmantank/cron-expression": "^3.1",
+                "ext-json": "*",
+                "php": ">=8.0",
+                "psr/log": "^1.0 || ^2.0 || ^3.0",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/console": "^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0",
+                "symfony/filesystem": "^5.4 || ^6.0",
+                "symfony/finder": "^5.4 || ^6.0",
+                "symfony/lock": "^5.4 || ^6.0",
+                "symfony/options-resolver": "^5.4 || ^6.0",
+                "symfony/process": "^5.4 || ^6.0",
+                "symfony/property-access": "^5.4 || ^6.0",
+                "symfony/serializer": "^5.4 || ^6.0",
+                "symfony/stopwatch": "^5.4 || ^6.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.1.4",
+                "doctrine/orm": "^2.8",
+                "ext-pcntl": "*",
+                "ext-pdo": "*",
+                "ext-redis": "*",
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "infection/infection": "^0.25.3",
+                "marcocesarato/php-conventional-changelog": "^1.12",
+                "phpstan/phpstan": "^0.12.99",
+                "phpstan/phpstan-deprecation-rules": "^0.12.6",
+                "phpstan/phpstan-doctrine": "^0.12.44",
+                "phpstan/phpstan-phpunit": "^0.12.22",
+                "phpstan/phpstan-strict-rules": "^0.12.11",
+                "phpstan/phpstan-symfony": "^0.12.44",
+                "phpunit/phpunit": "^9.5.10",
+                "psr/cache": "^1.0 || ^2.0 || ^3.0",
+                "rector/rector": "^0.11.60",
+                "symfony/cache": "^5.4",
+                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/framework-bundle": "^5.4 || ^6.0",
+                "symfony/http-client": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0",
+                "symfony/mercure": "^0.5.3",
+                "symfony/messenger": "^5.4 || ^6.0",
+                "symfony/notifier": "^5.4 || ^6.0",
+                "symfony/rate-limiter": "^5.4 || ^6.0",
+                "thecodingmachine/safe": "^1.3.3"
+            },
+            "suggest": {
+                "symfony/http-client": "For dispatching http tasks and / or using external probe clients",
+                "symfony/messenger": "For dispatching tasks to queue",
+                "symfony/notifier": "For dispatching notification tasks"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SchedulerBundle\\": "src/",
+                    "SchedulerBundle\\Pool\\": "src/Pool/",
+                    "SchedulerBundle\\Task\\": "src/Task/",
+                    "SchedulerBundle\\Test\\": "src/Test/",
+                    "SchedulerBundle\\Event\\": "src/Event/",
+                    "SchedulerBundle\\Probe\\": "src/Probe/",
+                    "SchedulerBundle\\Bridge\\": "src/Bridge/",
+                    "SchedulerBundle\\Runner\\": "src/Runner/",
+                    "SchedulerBundle\\Worker\\": "src/Worker/",
+                    "SchedulerBundle\\Command\\": "src/Command/",
+                    "SchedulerBundle\\TaskBag\\": "src/TaskBag/",
+                    "SchedulerBundle\\Exception\\": "src/Exception/",
+                    "SchedulerBundle\\Messenger\\": "src/Messenger/",
+                    "SchedulerBundle\\Transport\\": "src/Transport/",
+                    "SchedulerBundle\\Expression\\": "src/Expression/",
+                    "SchedulerBundle\\Middleware\\": "src/Middleware/",
+                    "SchedulerBundle\\Serializer\\": "src/Serializer/",
+                    "SchedulerBundle\\Bridge\\Redis\\": "src/Bridge/Redis/",
+                    "SchedulerBundle\\Task\\Builder\\": "src/Task/Builder/",
+                    "SchedulerBundle\\DataCollector\\": "src/DataCollector/",
+                    "SchedulerBundle\\EventListener\\": "src/EventListener/",
+                    "SchedulerBundle\\SchedulePolicy\\": "src/SchedulePolicy/",
+                    "SchedulerBundle\\Bridge\\Doctrine\\": "src/Bridge/Doctrine/",
+                    "SchedulerBundle\\Test\\Constraint\\": "src/Test/Constraint/",
+                    "SchedulerBundle\\DependencyInjection\\": "src/DependencyInjection/",
+                    "SchedulerBundle\\Test\\Constraint\\Probe\\": "src/Test/Constraint/Probe/",
+                    "SchedulerBundle\\Bridge\\Redis\\Transport\\": "src/Bridge/Redis/Transport/",
+                    "SchedulerBundle\\Transport\\Configuration\\": "src/Transport/Configuration/",
+                    "SchedulerBundle\\Bridge\\Doctrine\\Transport\\": "src/Bridge/Doctrine/Transport/",
+                    "SchedulerBundle\\Test\\Constraint\\Scheduler\\": "src/Test/Constraint/Scheduler/",
+                    "SchedulerBundle\\Bridge\\Doctrine\\SchemaListener\\": "src/Bridge/Doctrine/SchemaListener/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume Loulier",
+                    "email": "contact@guillaumeloulier.fr",
+                    "homepage": "https://www.guillaumeloulier.fr/"
+                }
+            ],
+            "description": "A Symfony bundle that allows to schedule and create repetitive tasks",
+            "keywords": [
+                "Tasks",
+                "automation",
+                "cron",
+                "schedule",
+                "scheduler"
+            ],
+            "support": {
+                "issues": "https://github.com/Guikingone/SchedulerBundle/issues",
+                "source": "https://github.com/Guikingone/SchedulerBundle/tree/0.8.0"
+            },
+            "time": "2021-12-06T07:35:16+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -6184,6 +6371,83 @@
             "time": "2022-01-02T09:55:41+00:00"
         },
         {
+            "name": "symfony/lock",
+            "version": "v6.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/lock.git",
+                "reference": "07aae10b83209a0c85bd19824d42c25efccde3fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/lock/zipball/07aae10b83209a0c85bd19824d42c25efccde3fe",
+                "reference": "07aae10b83209a0c85bd19824d42c25efccde3fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2",
+                "psr/log": "^1|^2|^3"
+            },
+            "conflict": {
+                "doctrine/dbal": "<2.13"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.13|^3.0",
+                "predis/predis": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Lock\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jérémy Derussé",
+                    "email": "jeremy@derusse.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Creates and manages locks, a mechanism to provide exclusive access to a shared resource",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "cas",
+                "flock",
+                "locking",
+                "mutex",
+                "redlock",
+                "semaphore"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/lock/tree/v6.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-27T13:13:08+00:00"
+        },
+        {
             "name": "symfony/mailer",
             "version": "v6.0.3",
             "source": {
@@ -7534,6 +7798,67 @@
                 }
             ],
             "time": "2021-10-20T20:35:02+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v6.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "298ed357274c1868c20a0061df256a1250a6c4af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/298ed357274c1868c20a0061df256a1250a6c4af",
+                "reference": "298ed357274c1868c20a0061df256a1250a6c4af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Executes commands in sub-processes",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/v6.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-26T17:23:29+00:00"
         },
         {
             "name": "symfony/property-access",

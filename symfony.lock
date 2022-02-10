@@ -120,6 +120,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dragonmantank/cron-expression": {
+        "version": "v3.3.1"
+    },
     "easycorp/easyadmin-bundle": {
         "version": "4.0",
         "recipe": {
@@ -140,6 +143,9 @@
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.4.0"
+    },
+    "guikingone/scheduler-bundle": {
+        "version": "0.8.0"
     },
     "guzzlehttp/guzzle": {
         "version": "7.4.1"
@@ -498,6 +504,18 @@
     "symfony/intl": {
         "version": "v6.0.1"
     },
+    "symfony/lock": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "a1c8800e40ae735206bb14586fdd6c4630a51b8d"
+        },
+        "files": [
+            "config/packages/lock.yaml"
+        ]
+    },
     "symfony/mailer": {
         "version": "6.0",
         "recipe": {
@@ -611,6 +629,9 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.23.0"
+    },
+    "symfony/process": {
+        "version": "v6.0.3"
     },
     "symfony/property-access": {
         "version": "v6.0.2"
