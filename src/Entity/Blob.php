@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\BlobRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -72,6 +73,7 @@ class Blob
      * @ORM\OneToMany(targetEntity=Revision::class, mappedBy="blob", orphanRemoval=true)
      */
     #[Groups(['blob:read'])]
+    #[ApiSubresource]
     private array|ArrayCollection|Collection $revisions;
 
     /**

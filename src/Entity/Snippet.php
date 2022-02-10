@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Filter\SnippetIsPublicFilter;
 use App\Repository\SnippetRepository;
@@ -90,8 +91,9 @@ class Snippet
      * 
      * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
      */
-    #[Groups(['snippet:read'])]
+    #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiProperty(push: true)]
+    #[ApiSubresource]
     private array|ArrayCollection|Collection $blobs;
 
     /**
