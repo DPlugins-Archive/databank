@@ -16,6 +16,18 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: app_user_provider
+            jwt: ~
+
+            # Extending Authenticator
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/issues/193
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/2-data-customization.md#eventsjwt_decoded---validating-data-in-the-jwt-payload
+
+
         main:
             lazy: true
             provider: app_user_provider
@@ -31,7 +43,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             json_login:
-                check_path: /api/login_check
+                check_path: /auth/login_check
                 username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -45,16 +57,6 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-
-        api:
-            pattern: ^/api/
-            stateless: true
-            provider: app_user_provider
-            jwt: ~
-
-            # Extending Authenticator
-            # https://github.com/lexik/LexikJWTAuthenticationBundle/issues/193
-            # https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/2-data-customization.md#eventsjwt_decoded---validating-data-in-the-jwt-payload
             
 
     # Easy way to control access for large sections of your site
@@ -63,8 +65,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/app, roles: ROLE_USER }
-        - { path: ^/api/auth_token, roles: ROLE_USER }
-        - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/auth_token, roles: ROLE_USER }
+        - { path: ^/auth/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ApiController extends AbstractController
 {
-    #[Route('/api/auth_token', name: 'security_api')]
+    #[Route('/auth/auth_token', name: 'security_api')]
     public function getTokenUser(UserInterface $user, JWTTokenManagerInterface $JWTManager): Response
     {
         return $this->render('security/api/auth_token.html.twig', [
