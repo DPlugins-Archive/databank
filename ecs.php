@@ -12,7 +12,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ]);
-    $parameters->set(Option::PARALLEL, false);
+    $parameters->set(Option::PARALLEL, true);
 
     $containerConfigurator->import(SetList::SYMFONY);
 };

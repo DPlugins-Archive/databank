@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Snippet resource.
- *
- * @ORM\Entity(repositoryClass=SnippetRepository::class)
  */
 #[ApiResource(
     attributes: ['security' => "is_granted('ROLE_USER')"],
@@ -33,113 +31,102 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['snippet:read']],
     denormalizationContext: ['groups' => ['snippet:write']],
 )]
+#[ORM\Entity(repositoryClass: SnippetRepository::class)]
 class Snippet
 {
     /**
      * The id of record in the database.
-     * 
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
     #[Groups(['snippet:read'])]
     #[ApiProperty(
         identifier: false,
         security: "is_granted('ROLE_ADMIN')",
     )]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
     /**
      * The unique identifier of the snippet resource.
-     * 
-     * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
     #[Groups(['snippet:read'])]
     #[ApiProperty(identifier: true)]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private Uuid $uuid;
 
     /**
      * The slug of plugin/vendor that own the snippet resource.
-     *
-     * @ORM\Column(type="string", length=255)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'exact')]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $namespace;
 
     /**
      * The name of the snippet resource.
-     * 
-     * @ORM\Column(type="string", length=255)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
     /**
      * Is the snippet resource accessible to the public? default: false.
-     * 
-     * @ORM\Column(type="boolean", options={"default":false})
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SnippetIsPublicFilter::class)]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $isPublic;
 
     /**
      * The blob resources that are associated with the snippet resource. A snippet resource can have many blob resources.
-     * 
-     * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true, cascade={"persist"})
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiProperty(push: true)]
     #[ApiSubresource]
+    #[ORM\OneToMany(targetEntity: Blob::class, mappedBy: 'snippet', orphanRemoval: true, cascade: ['persist'])]
     private array|ArrayCollection|Collection $blobs;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="create")
-     */
     #[Groups(['snippet:read'])]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * The tag resources that are associated with the snippet resource. A snippet resource can have many tag resources and vice versa.
-     * 
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="snippets")
-     * 
+     *
      * @var Tag[]|Collection
      */
     #[Groups(['snippet:read', 'snippet:write'])]
+    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'snippets')]
     private iterable $tags;
 
     /**
      * The additional data about the snippet resource.
-     *
-     * @ORM\Column(type="json", nullable=true)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
+    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $meta = [];
 
     /**
      * The description of the snippet resource. Recommend to use Markdown syntax.
-     * 
-     * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
     /**
      * The owner of the snippet resource.
-     * 
-     * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="snippets")
-     * @ORM\JoinColumn(nullable=false)
      */
     #[Groups(['snippet:read'])]
     #[ApiProperty(
         security: "is_granted('ROLE_USER') and object.getPerson() == user",
     )]
+    #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: 'snippets')]
+    #[ORM\JoinColumn(nullable: false)]
     private Person $person;
 
     public function __construct()

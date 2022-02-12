@@ -9,13 +9,12 @@ class IsValidOwnerValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        /** @var $constraint \App\Validator\IsValidOwner */
 
         if (null === $value || '' === $value) {
             return;
         }
 
-        // TODO: implement the validation here
+        /** @var \App\Validator\IsValidOwner $constraint */
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $value)
             ->addViolation();

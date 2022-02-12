@@ -6,9 +6,7 @@ use App\Repository\BillingHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass=BillingHistoryRepository::class)
- */
+#[ORM\Entity(repositoryClass: BillingHistoryRepository::class)]
 class BillingHistory
 {
     public const STATUS_PENDING = 'pending';
@@ -20,49 +18,35 @@ class BillingHistory
     public const STATUS_PROCESSING = 'processing';
     public const STATUS_COMPLETED = 'completed';
     public const STATUS_INVALID = 'invalid';
-
     public const TYPE_DEBIT = 'debit';
     public const TYPE_CREDIT = 'credit';
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: 'float')]
     private ?float $amount = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
     /**
      * The type of transaction. available values are: debit, credit.
-     *
-     * @ORM\Column(type="string", length=180)
      */
+    #[ORM\Column(type: 'string', length: 180)]
     private ?string $type = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Billing::class, inversedBy="billingHistories")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Billing::class, inversedBy: 'billingHistories')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Billing $billing = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $status = null;
 
     public function getId(): ?int

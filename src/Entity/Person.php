@@ -12,71 +12,51 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=PersonRepository::class)
- */
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
 class Person implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
     #[Assert\NotBlank]
     #[Assert\Email]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
     #[Assert\Regex(
         pattern: '/^[a-zA-Z0-9_]{4,20}$/',
         message: 'Username must be at least 4 characters long and contain only letters, numbers and underscores'
     )]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $username = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * The hashed password
      */
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Billing::class, inversedBy="person", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Billing::class, inversedBy: 'person', cascade: ['persist', 'remove'])]
     private ?Billing $billing = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="person", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Tag::class, mappedBy: 'person', orphanRemoval: true)]
     private array|ArrayCollection|Collection $tags;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Snippet::class, mappedBy="person", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Snippet::class, mappedBy: 'person', orphanRemoval: true)]
     private array|ArrayCollection|Collection $snippets;
 
     public function __construct()

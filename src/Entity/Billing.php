@@ -7,52 +7,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=BillingRepository::class)
- */
+#[ORM\Entity(repositoryClass: BillingRepository::class)]
 class Billing
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="float", options={"default":0})
-     */
+    #[ORM\Column(type: 'float', options: ['default' => 0])]
     private ?float $credit = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private $isActive;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private $isAutoRenewal;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Plan::class, inversedBy="billings")
-     */
+    #[ORM\ManyToOne(targetEntity: Plan::class, inversedBy: 'billings')]
     private ?Plan $plan = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Person::class, mappedBy="billing", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Person::class, mappedBy: 'billing', cascade: ['persist', 'remove'])]
     private ?Person $person = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $expiredAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=BillingHistory::class, mappedBy="billing", orphanRemoval=true)
-     * @ORM\OrderBy({"createdAt" = "DESC"})
-     */
+    #[ORM\OneToMany(targetEntity: BillingHistory::class, mappedBy: 'billing', orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private array|ArrayCollection|Collection $billingHistories;
 
     public function __construct()

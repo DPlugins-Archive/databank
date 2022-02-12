@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Revision resource.
- * 
- * @ORM\Entity(repositoryClass=RevisionRepository::class)
  */
 #[ApiResource(
     collectionOperations: [],
@@ -23,73 +21,67 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ['groups' => ['revision:read']],
 )]
+#[ORM\Entity(repositoryClass: RevisionRepository::class)]
 class Revision
 {
     /**
      * The id of record in the database.
-     * 
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
     #[ApiProperty(identifier: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
     /**
      * The unique identifier of the revision resource.
-     * 
-     * @ORM\Column(type="uuid", unique=true)
      */
     #[Assert\Uuid]
     #[ApiProperty(identifier: true)]
     #[Groups(['blob:read', 'revision:read'])]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private Uuid $uuid;
 
     /**
      * The blob resource who own the revision resource.
-     * 
-     * @ORM\ManyToOne(targetEntity=Blob::class, inversedBy="revisions")
-     * @ORM\JoinColumn(nullable=false)
      */
+    #[ORM\ManyToOne(targetEntity: Blob::class, inversedBy: 'revisions')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Blob $blob = null;
 
     /**
      * The hash of the revision resource.
-     * 
-     * @ORM\Column(type="text")
      */
     #[Groups(['blob:read', 'revision:read'])]
+    #[ORM\Column(type: 'text')]
     private ?string $hash = null;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     #[Groups(['blob:read', 'revision:read'])]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * The size of the revision resource in bytes.
-     * 
-     * @ORM\Column(type="integer", options={"default":0})
      */
     #[Groups(['blob:read', 'revision:read'])]
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $size;
 
     /**
      * The excerpt of the revision resource. This is the first few lines of the revision's content for preview purposes.
-     * 
-     * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['blob:read', 'revision:read'])]
+    #[ORM\Column(type: 'text', nullable: true)]
     private string $excerpt;
 
     /**
      * The content of the revision resource.
-     * 
-     * @ORM\Column(type="text")
      */
     #[Groups(['revision:read'])]
+    #[ORM\Column(type: 'text')]
     private string $content;
 
     public function getId(): ?int

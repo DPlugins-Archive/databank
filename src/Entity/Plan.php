@@ -7,54 +7,37 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=PlanRepository::class)
- */
+#[ORM\Entity(repositoryClass: PlanRepository::class)]
 class Plan
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $slug = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: 'float')]
     private ?float $price = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private ?int $duration = null;
 
     /**
      * The unit of the duration. available values: second, hour, day, week, month, year.
-     *
-     * @ORM\Column(type="string", length=180)
      */
+    #[ORM\Column(type: 'string', length: 180)]
     private ?string $unit = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Billing::class, mappedBy="plan")
-     */
+    #[ORM\OneToMany(targetEntity: Billing::class, mappedBy: 'plan')]
     private array|ArrayCollection|Collection $billings;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isEnabled = false;
+    #[ORM\Column(type: 'boolean')]
+    private bool $isEnabled = false;
 
     public function __construct()
     {
