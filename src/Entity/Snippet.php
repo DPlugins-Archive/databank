@@ -89,7 +89,7 @@ class Snippet
     /**
      * The blob resources that are associated with the snippet resource. A snippet resource can have many blob resources.
      * 
-     * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Blob::class, mappedBy="snippet", orphanRemoval=true, cascade={"persist"})
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiProperty(push: true)]
@@ -124,7 +124,7 @@ class Snippet
     /**
      * The description of the snippet resource. Recommend to use Markdown syntax.
      * 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['snippet:read', 'snippet:write'])]
     #[ApiFilter(SearchFilter::class, strategy: 'ipartial')]

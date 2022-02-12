@@ -28,6 +28,7 @@ services:
             - 
                 name: 'doctrine.event_listener'
                 event: 'onFlush'
+                entity: 'App\Entity\Blob'
 
     App\EventListener\SnippetOwnerAssigner:
         tags:

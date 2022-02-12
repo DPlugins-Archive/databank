@@ -111,7 +111,7 @@ class Blob
      *
      * @ORM\Column(type="json", nullable=true)
      */
-    #[Groups(['blob:read', 'blob:write', 'snippet:read'])]
+    #[Groups(['blob:read', 'blob:write', 'snippet:read', 'snippet:write'])]
     private ?array $meta = [];
 
     /**
@@ -128,7 +128,7 @@ class Blob
      * @ORM\Column(type="text")
      */
     #[Assert\NotBlank]
-    #[Groups(['blob:read', 'blob:write'])]
+    #[Groups(['blob:read', 'blob:write', 'snippet:write'])]
     private string $content;
 
     public function __construct()
