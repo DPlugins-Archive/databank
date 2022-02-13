@@ -50,8 +50,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		# cron job
 		touch var/log/cron.log
 		crontab /etc/cron.d/cron
-		crond && tail -f var/log/cron.log
+		crond -b -L /srv/api/var/log/cron.log
 	fi
+
 fi
 
 exec docker-php-entrypoint "$@"

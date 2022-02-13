@@ -7,5 +7,3 @@ scheduler_bundle:
             command: 'app:billing:downgrade-expired'
             expression: '0 0 * * *'
             description: 'Downgrade all expired subscription task'
-            options:
-                env: dev

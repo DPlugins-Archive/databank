@@ -87,12 +87,24 @@ RUN set -eux; \
 ###> recipes ###
 ###< recipes ###
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && architecture=$(uname -m) \
+    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/$architecture/$version \
+    && mkdir -p /tmp/blackfire \
+    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8307\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
+    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+
+# Please note that the Blackfire Probe is dependent on the session module.
+# If it isn't present in your install, you will need to enable it yourself.
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 VOLUME /var/run/php
 
@@ -128,6 +140,9 @@ COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
 RUN chmod +x /usr/local/bin/docker-healthcheck
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+
+COPY docker/php/cron.d/cron /etc/cron.d/cron
+RUN chmod 0644 /etc/cron.d/cron
 
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
