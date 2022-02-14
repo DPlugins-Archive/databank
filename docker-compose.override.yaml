@@ -7,7 +7,7 @@ services:
       - ./:/srv/api:rw,cached
       - ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
       # If you develop on Linux, you may use a bind-mounted host directory instead
-      # - ./var:/srv/api/var:rw
+      - ./var:/srv/api/var:rw
     environment:
       APP_ENV: dev
 
