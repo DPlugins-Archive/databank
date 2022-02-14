@@ -74,19 +74,6 @@ services:
     ports:
       - ${PGBOUNCER_PORT:-6432}:6432
 
-  blackfire:
-    image: blackfire/blackfire:2
-    depends_on:
-      - caddy
-    ports: ["8307"]
-    environment:
-        # Exposes BLACKFIRE_* environment variables from the host
-        BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
-        BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-        BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
-        BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
-        BLACKFIRE_DISABLE_LEGACY_PORT: 1
-
 volumes:
   caddy_data:
   caddy_config: 
