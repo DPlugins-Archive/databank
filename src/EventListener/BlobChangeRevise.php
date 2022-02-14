@@ -24,7 +24,6 @@ class BlobChangeRevise
                     $revision->setContent($entityChangeSet['content'][0]);
                     $revision->setHash($entityChangeSet['hash'][0]);
                     $revision->setSize($entityChangeSet['size'][0]);
-                    $revision->setExcerpt($entityChangeSet['excerpt'][0]);
                     $em->persist($revision);
 
                     $classMetadata = $em->getClassMetadata(Revision::class);

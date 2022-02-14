@@ -104,18 +104,18 @@ class Blob
     private ?array $meta = [];
 
     /**
-     * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
-     */
-    #[Groups(['blob:read', 'snippet:read'])]
-    private ?string $excerpt = null;
-
-    /**
      * The content of the blob resource.
      */
     #[Assert\NotBlank]
     #[Groups(['blob:read', 'blob:write', 'snippet:write'])]
     #[ORM\Column(type: 'text')]
     private string $content;
+
+    /**
+     * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
+     */
+    #[Groups(['blob:read', 'snippet:read'])]
+    private ?string $excerpt = null;
 
     public function __construct()
     {
