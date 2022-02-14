@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\String\ByteString;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -106,7 +107,6 @@ class Blob
      * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
      */
     #[Groups(['blob:read', 'snippet:read'])]
-    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $excerpt = null;
 
     /**
@@ -244,14 +244,7 @@ class Blob
 
     public function getExcerpt(): ?string
     {
-        return $this->excerpt;
-    }
-
-    public function setExcerpt(?string $excerpt): self
-    {
-        $this->excerpt = $excerpt;
-
-        return $this;
+        return implode(PHP_EOL, array_slice(explode(PHP_EOL, $this->getContent()), 0, 50));
     }
 
     public function getContent(): ?string
@@ -264,8 +257,7 @@ class Blob
         $this->content = $content;
 
         $this->setHash(sha1($content));
-        $this->setSize(strlen($content));
-        $this->setExcerpt(substr($content, 0, 200));
+        $this->setSize((new ByteString($content))->length());
 
         return $this;
     }

@@ -74,7 +74,6 @@ class Revision
      * The excerpt of the revision resource. This is the first few lines of the revision's content for preview purposes.
      */
     #[Groups(['blob:read', 'revision:read'])]
-    #[ORM\Column(type: 'text', nullable: true)]
     private string $excerpt;
 
     /**
@@ -151,14 +150,7 @@ class Revision
 
     public function getExcerpt(): ?string
     {
-        return $this->excerpt;
-    }
-
-    public function setExcerpt(?string $excerpt): self
-    {
-        $this->excerpt = $excerpt;
-
-        return $this;
+        return implode(PHP_EOL, array_slice(explode(PHP_EOL, $this->getContent()), 0, 50));
     }
 
     public function getContent(): ?string
