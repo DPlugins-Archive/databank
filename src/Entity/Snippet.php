@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Snippet resource.
  */
 #[ApiResource(
+    formats: ['jsonld'],
     attributes: ['security' => "is_granted('ROLE_USER')"],
     collectionOperations: ['get', 'post'],
     itemOperations: [

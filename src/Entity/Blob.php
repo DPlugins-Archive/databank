@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Blob resource.
  */
 #[ApiResource(
+    formats: ['jsonld'],
     collectionOperations: [
         'post' => [
             'security_post_denormalize' => "is_granted('ROLE_USER') and object.getSnippet().getPerson() == user",

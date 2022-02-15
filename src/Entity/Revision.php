@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Revision resource.
  */
 #[ApiResource(
+    formats: ['jsonld'],
     collectionOperations: [],
     itemOperations: [
         'get' => ['security' => "object.getBlob().getSnippet().getIsPublic() == true or (is_granted('ROLE_USER') and object.getBlob().getSnippet().getPerson() == user)"],
