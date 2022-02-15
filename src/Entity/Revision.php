@@ -71,12 +71,6 @@ class Revision
     private int $size;
 
     /**
-     * The excerpt of the revision resource. This is the first few lines of the revision's content for preview purposes.
-     */
-    #[Groups(['blob:read', 'revision:read'])]
-    private string $excerpt;
-
-    /**
      * The content of the revision resource.
      */
     #[Groups(['revision:read'])]
@@ -148,6 +142,10 @@ class Revision
         return $this;
     }
 
+    /**
+     * The excerpt of the revision resource. This is the first few lines of the revision's content for preview purposes.
+     */
+    #[Groups(['blob:read', 'revision:read'])]
     public function getExcerpt(): ?string
     {
         return implode(PHP_EOL, array_slice(explode(PHP_EOL, $this->getContent()), 0, 50));

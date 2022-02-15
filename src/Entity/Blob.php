@@ -111,12 +111,6 @@ class Blob
     #[ORM\Column(type: 'text')]
     private string $content;
 
-    /**
-     * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
-     */
-    #[Groups(['blob:read', 'snippet:read'])]
-    private ?string $excerpt = null;
-
     public function __construct()
     {
         $this->uuid = Uuid::v4();
@@ -242,6 +236,10 @@ class Blob
         return $this;
     }
 
+    /**
+     * The excerpt of the blob resource. This is the first few lines of the blob's content for preview purposes.
+     */
+    #[Groups(['blob:read', 'snippet:read'])]
     public function getExcerpt(): ?string
     {
         return implode(PHP_EOL, array_slice(explode(PHP_EOL, $this->getContent()), 0, 50));
