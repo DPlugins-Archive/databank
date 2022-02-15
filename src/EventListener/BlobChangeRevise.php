@@ -22,8 +22,6 @@ class BlobChangeRevise
                     $revision->setUuid(Uuid::v4());
                     $revision->setBlob($entity);
                     $revision->setContent($entityChangeSet['content'][0]);
-                    $revision->setHash($entityChangeSet['hash'][0]);
-                    $revision->setSize($entityChangeSet['size'][0]);
                     $em->persist($revision);
 
                     $classMetadata = $em->getClassMetadata(Revision::class);

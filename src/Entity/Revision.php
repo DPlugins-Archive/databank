@@ -8,6 +8,7 @@ use App\Repository\RevisionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\String\ByteString;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -160,6 +161,9 @@ class Revision
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        $this->setHash(sha1($content));
+        $this->setSize((new ByteString($content))->length());
 
         return $this;
     }

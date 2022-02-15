@@ -77,6 +77,7 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
      */
     public function supportsNormalization($data, $format = null): bool
     {
+        return false;
         return $this->decorated->supportsNormalization($data, $format) && ($data instanceof Blob || $data instanceof Revision);
     }
 
@@ -85,6 +86,7 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
      */
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null): bool
     {
+        return false;
         return $this->decorated->supportsDenormalization($data, $type, $format) && $type === Blob::class;
     }
 
