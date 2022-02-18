@@ -1,6 +1,6 @@
 api_platform:
-    defaults:
-        pagination_client_items_per_page: true
+    title: Snippets Guru API Platform
+    version: 1.0.0
     collection:
         pagination:
             items_per_page_parameter_name: itemsPerPage # Default value
@@ -14,3 +14,11 @@ api_platform:
             apiKey:
                 name: Authorization
                 type: header
+    # Mercure integration, remove if unwanted
+    # mercure: ~
+    # Good cache defaults for REST APIs
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
+        pagination_client_items_per_page: true

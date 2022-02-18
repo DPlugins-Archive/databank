@@ -56,14 +56,12 @@ RUN set -eux; \
 		$PHPIZE_DEPS \
 		icu-dev \
 		libzip-dev \
-		postgresql-dev \
 		zlib-dev \
 	; \
 	\
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
 		intl \
-		pdo_pgsql \
 		zip \
 	; \
 	pecl install \
@@ -86,6 +84,12 @@ RUN set -eux; \
 	apk del .build-deps
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
+	docker-php-ext-install -j$(nproc) pdo_pgsql; \
+	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
+	apk del .pgsql-deps
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
@@ -100,12 +104,12 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 # Please note that the Blackfire Probe is dependent on the session module.
 # If it isn't present in your install, you will need to enable it yourself.
 
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 VOLUME /var/run/php
 
@@ -114,8 +118,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/api
-
-COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 
 # build for production
 ARG APP_ENV=prod
@@ -127,7 +129,13 @@ RUN set -eux; \
 	composer clear-cache
 
 # copy only specifically what we need
-COPY . .
+COPY .env ./
+COPY bin bin/
+COPY config config/
+COPY migrations migrations/
+COPY public public/
+COPY src src/
+COPY templates templates/
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
@@ -168,6 +176,7 @@ FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
 WORKDIR /srv/api
 
+COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=api_platform_php /srv/api/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
