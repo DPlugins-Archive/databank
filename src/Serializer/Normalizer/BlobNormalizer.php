@@ -26,13 +26,13 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize($object, $format = null, array $context = [])
     {
         $data = $this->decorated->normalize($object, $format, $context);
 
         if (
-            ($object instanceof Blob && $object->getSnippet()->getNamespace() === 'scripts-organizer')
-            || ($object instanceof Revision && $object->getBlob()->getSnippet()->getNamespace() === 'scripts-organizer')
+            ($object instanceof Blob && 'scripts-organizer' === $object->getSnippet()->getNamespace())
+            || ($object instanceof Revision && 'scripts-organizer' === $object->getBlob()->getSnippet()->getNamespace())
         ) {
             if (isset($data['content'])) {
                 $data['content'] = base64_encode($data['content']);
@@ -45,13 +45,13 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     /**
      * {@inheritdoc}
      */
-    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
     {
         $data = $this->decorated->denormalize($data, $type, $format, $context);
 
         if (
-            ($data instanceof Blob && $data->getSnippet()->getNamespace() === 'scripts-organizer')
-            || ($data instanceof Revision && $data->getBlob()->getSnippet()->getNamespace() === 'scripts-organizer')
+            ($data instanceof Blob && 'scripts-organizer' === $data->getSnippet()->getNamespace())
+            || ($data instanceof Revision && 'scripts-organizer' === $data->getBlob()->getSnippet()->getNamespace())
         ) {
             $content = $this->base64_decode($data->getContent());
             if (false !== $content) {
@@ -78,6 +78,7 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     public function supportsNormalization($data, $format = null): bool
     {
         return false;
+
         return $this->decorated->supportsNormalization($data, $format) && ($data instanceof Blob || $data instanceof Revision);
     }
 
@@ -87,7 +88,8 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null): bool
     {
         return false;
-        return $this->decorated->supportsDenormalization($data, $type, $format) && $type === Blob::class;
+
+        return $this->decorated->supportsDenormalization($data, $type, $format) && Blob::class === $type;
     }
 
     /**
@@ -104,9 +106,13 @@ class BlobNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     private function base64_decode($encoded)
     {
         $decoded = base64_decode($encoded, true);
-        if ($decoded === false) return false;
+        if (false === $decoded) {
+            return false;
+        }
 
-        if (!preg_match('/[a-z0-9\!\$\&\\\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i', $encoded)) return false;
+        if (!preg_match('/[a-z0-9\!\$\&\\\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i', (string) $encoded)) {
+            return false;
+        }
 
         return $decoded;
     }

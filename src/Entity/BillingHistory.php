@@ -9,17 +9,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[ORM\Entity(repositoryClass: BillingHistoryRepository::class)]
 class BillingHistory
 {
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_PAID = 'paid';
-    public const STATUS_CANCELED = 'canceled';
-    public const STATUS_REFUNDED = 'refunded';
-    public const STATUS_FAILED = 'failed';
-    public const STATUS_UNKNOWN = 'unknown';
-    public const STATUS_PROCESSING = 'processing';
-    public const STATUS_COMPLETED = 'completed';
-    public const STATUS_INVALID = 'invalid';
-    public const TYPE_DEBIT = 'debit';
-    public const TYPE_CREDIT = 'credit';
+    final public const STATUS_PENDING = 'pending';
+    final public const STATUS_PAID = 'paid';
+    final public const STATUS_CANCELED = 'canceled';
+    final public const STATUS_REFUNDED = 'refunded';
+    final public const STATUS_FAILED = 'failed';
+    final public const STATUS_UNKNOWN = 'unknown';
+    final public const STATUS_PROCESSING = 'processing';
+    final public const STATUS_COMPLETED = 'completed';
+    final public const STATUS_INVALID = 'invalid';
+    final public const TYPE_DEBIT = 'debit';
+    final public const TYPE_CREDIT = 'credit';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

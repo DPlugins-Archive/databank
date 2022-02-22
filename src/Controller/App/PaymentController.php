@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
 {
     // private Currency $currency;
 
-    public function __construct(private ValidatorInterface $validator)
+    public function __construct(private readonly ValidatorInterface $validator)
     {
         // $this->currency = (new ISO4217())->findByAlpha3('USD');
     }

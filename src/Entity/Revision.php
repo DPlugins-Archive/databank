@@ -150,7 +150,7 @@ class Revision
     #[Groups(['blob:read', 'revision:read'])]
     public function getExcerpt(): ?string
     {
-        return implode(PHP_EOL, array_slice(explode(PHP_EOL, $this->getContent()), 0, 50));
+        return implode(PHP_EOL, array_slice(explode(PHP_EOL, (string) $this->getContent()), 0, 50));
     }
 
     public function getContent(): ?string

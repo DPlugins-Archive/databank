@@ -31,8 +31,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES);
     $containerConfigurator->import(SensiolabsSetList::FRAMEWORK_EXTRA_61);
 
-    $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
+    $containerConfigurator->import(LevelSetList::UP_TO_PHP_81);
     $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_60);
     $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
 };

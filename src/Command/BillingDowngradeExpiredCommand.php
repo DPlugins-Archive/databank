@@ -16,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class BillingDowngradeExpiredCommand extends Command
 {
-    public function __construct(private BillingRepository $billingRepository)
+    public function __construct(private readonly BillingRepository $billingRepository)
     {
         parent::__construct();
     }

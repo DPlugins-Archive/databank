@@ -44,7 +44,7 @@ class Tag
      */
     #[ORM\ManyToMany(targetEntity: Snippet::class, inversedBy: 'tags')]
     private array|ArrayCollection|Collection $snippets;
-    
+
     /**
      * The owner of the snippet resource.
      */
