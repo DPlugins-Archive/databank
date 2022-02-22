@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -22,11 +23,13 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[Groups('person')]
     #[Assert\NotBlank]
     #[Assert\Email]
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $email = null;
 
+    #[Groups('person')]
     #[Assert\Regex(
         pattern: '/^[a-zA-Z0-9_]{4,20}$/',
         message: 'Username must be at least 4 characters long and contain only letters, numbers and underscores'
@@ -43,13 +46,12 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\OneToOne(targetEntity: Billing::class, inversedBy: 'person', cascade: ['persist', 'remove'])]
-    private ?Billing $billing = null;
-
+    #[Groups('person')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
+    #[Groups('person')]
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
@@ -58,6 +60,10 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Snippet::class, mappedBy: 'person', orphanRemoval: true)]
     private array|ArrayCollection|Collection $snippets;
+
+    #[Groups('person')]
+    #[ORM\OneToOne(mappedBy: 'person', targetEntity: Billing::class, cascade: ['persist', 'remove'])]
+    private $billing;
 
     public function __construct()
     {
@@ -160,18 +166,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBilling(): ?Billing
-    {
-        return $this->billing;
-    }
-
-    public function setBilling(?Billing $billing): self
-    {
-        $this->billing = $billing;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -252,6 +246,23 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
                 $snippet->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBilling(): ?Billing
+    {
+        return $this->billing;
+    }
+
+    public function setBilling(Billing $billing): self
+    {
+        // set the owning side of the relation if necessary
+        if ($billing->getPerson() !== $this) {
+            $billing->setPerson($this);
+        }
+
+        $this->billing = $billing;
 
         return $this;
     }

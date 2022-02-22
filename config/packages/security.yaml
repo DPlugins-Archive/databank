@@ -23,11 +23,6 @@ security:
             provider: app_user_provider
             jwt: ~
 
-            # Extending Authenticator
-            # https://github.com/lexik/LexikJWTAuthenticationBundle/issues/193
-            # https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/2-data-customization.md#eventsjwt_decoded---validating-data-in-the-jwt-payload
-
-
         main:
             lazy: true
             provider: app_user_provider
@@ -43,7 +38,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             json_login:
-                check_path: /auth/login_check
+                check_path: api_login_check
                 username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -57,7 +52,10 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-            
+
+            # Extending Authenticator
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/issues/193
+            # https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/2-data-customization.md#eventsjwt_decoded---validating-data-in-the-jwt-payload
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

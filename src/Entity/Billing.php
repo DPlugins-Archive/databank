@@ -6,6 +6,7 @@ use App\Repository\BillingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BillingRepository::class)]
 class Billing
@@ -15,9 +16,11 @@ class Billing
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[Groups('billing')]
     #[ORM\Column(type: 'float', options: ['default' => 0])]
     private ?float $credit = null;
 
+    #[Groups('billing')]
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private $isActive;
 
@@ -27,15 +30,17 @@ class Billing
     #[ORM\ManyToOne(targetEntity: Plan::class, inversedBy: 'billings')]
     private ?Plan $plan = null;
 
-    #[ORM\OneToOne(targetEntity: Person::class, mappedBy: 'billing', cascade: ['persist', 'remove'])]
-    private ?Person $person = null;
-
+    #[Groups('billing')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $expiredAt;
 
     #[ORM\OneToMany(targetEntity: BillingHistory::class, mappedBy: 'billing', orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private array|ArrayCollection|Collection $billingHistories;
+
+    #[ORM\OneToOne(inversedBy: 'billing', targetEntity: Person::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private $person;
 
     public function __construct()
     {
@@ -95,28 +100,6 @@ class Billing
         return $this;
     }
 
-    public function getPerson(): ?Person
-    {
-        return $this->person;
-    }
-
-    public function setPerson(?Person $person): self
-    {
-        // unset the owning side of the relation if necessary
-        if (null === $person && null !== $this->person) {
-            $this->person->setBilling(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if (null !== $person && $person->getBilling() !== $this) {
-            $person->setBilling($this);
-        }
-
-        $this->person = $person;
-
-        return $this;
-    }
-
     public function getExpiredAt(): ?\DateTimeImmutable
     {
         return $this->expiredAt;
@@ -155,6 +138,18 @@ class Billing
                 $billingHistory->setBilling(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }
