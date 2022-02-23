@@ -23,7 +23,7 @@
 	</style>
 
 	<div class="p-4 text-center" {{ stimulus_controller('auth_token') }}>
-		<h1 class="sm:text-4xl text-2xl font-bold">Snippets Guru Authorization</h1>
+		<h1 class="sm:text-4xl text-2xl font-bold"><a href="{{ path('app_dashboard') }}" target="_blank" class="underline">Snippets Guru</a> Authorization</h1>
 		<p class="my-4">Copy & Paste the following token into the plugin's setting to provide account access:</p>
 		<div id="code" {{ stimulus_action('auth_token', 'copypaste', 'click') }} {{ stimulus_target('auth_token', 'token') }} class="bg-[#eee] rounded-lg border border-solid border-[#ccc] text-sm max-w-7xl p-4 text-left break-all font-mono">
 			{{ token }}
