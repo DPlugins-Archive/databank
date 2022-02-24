@@ -53,7 +53,7 @@ class Blob
      */
     #[Assert\Uuid]
     #[ApiProperty(identifier: true)]
-    #[Groups(['blob:read', 'snippet:read', 'snippet:write'])]
+    #[Groups(['blob:read', 'snippet:read'])]
     #[ORM\Column(type: 'uuid', unique: true)]
     private Uuid $uuid;
 
