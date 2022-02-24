@@ -84,9 +84,8 @@ class Snippet
     /**
      * The blob resources that are associated with the snippet resource. A snippet resource can have many blob resources.
      */
-    #[Groups(['snippet:read', 'snippet:write'])]
-    #[ApiProperty(push: true)]
     #[ApiSubresource]
+    #[Groups(['snippet:read', 'snippet:write'])]
     #[ORM\OneToMany(targetEntity: Blob::class, mappedBy: 'snippet', orphanRemoval: true, cascade: ['persist'])]
     private array|ArrayCollection|Collection $blobs;
 

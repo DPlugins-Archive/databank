@@ -37,7 +37,3 @@ services:
                 name: 'doctrine.orm.entity_listener'
                 event: 'prePersist'
                 entity: 'App\Entity\Snippet'
-                
-    App\Serializer\Normalizer\BlobNormalizer:
-        # By default .inner is passed as argument
-        decorates: 'api_platform.jsonld.normalizer.item'
