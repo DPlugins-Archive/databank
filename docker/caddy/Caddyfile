@@ -13,8 +13,6 @@
 
 log
 
-email {env.TLS_EMAIL}
-
 tls {
 	dns cloudflare {env.CF_API_TOKEN}
 }
