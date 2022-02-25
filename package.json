@@ -23,5 +23,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "packageManager": "yarn@3.1.1"
+    "packageManager": "yarn@3.1.1",
+    "volta": {
+        "node": "16.14.0"
+    }
 }
