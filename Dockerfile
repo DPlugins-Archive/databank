@@ -134,6 +134,7 @@ COPY bin bin/
 COPY config config/
 COPY migrations migrations/
 COPY public public/
+COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 COPY src src/
 COPY templates templates/
 
@@ -176,7 +177,6 @@ FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
 WORKDIR /srv/api
 
-COPY --from=api_platform_node /usr/src/frontend/public/build public/build
 COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=api_platform_php /srv/api/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
