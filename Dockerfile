@@ -168,6 +168,7 @@ FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
 # install Mercure and Vulcain modules
 RUN xcaddy build \
+    --with github.com/caddy-dns/cloudflare \
     --with github.com/dunglas/mercure \
     --with github.com/dunglas/mercure/caddy \
     --with github.com/dunglas/vulcain \
