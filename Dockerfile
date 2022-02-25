@@ -129,7 +129,7 @@ RUN set -eux; \
 	composer clear-cache
 
 # copy only specifically what we need
-COPY .env ./
+COPY .env* ./
 COPY bin bin/
 COPY config config/
 COPY migrations migrations/
