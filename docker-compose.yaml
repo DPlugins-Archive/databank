@@ -33,6 +33,8 @@ services:
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeMe!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeMe!}
+      CF_API_TOKEN: ${CF_API_TOKEN:-!ChangeMe!}
+      TLS_EMAIL: ${TLS_EMAIL:-!ChangeMe!}
     restart: unless-stopped
     volumes:
       - php_socket:/var/run/php
