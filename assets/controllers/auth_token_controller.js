@@ -4,7 +4,6 @@ export default class extends Controller {
     static targets = ['token']
 
     copypaste() {
-        navigator.clipboard.writeText(this.tokenTarget.innerText);
-        alert('Token copied to clipboard');
+        prompt("Copy & Paste the following token into the plugin's setting to provide account access", this.tokenTarget.innerText);
     }
 }
