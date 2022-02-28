@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\Billing;
 use App\Entity\Plan;
+use App\Security\Exception\EmailHasVerifiedException;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -49,6 +50,10 @@ class EmailVerifier
     public function handleEmailConfirmation(Request $request, UserInterface $user): void
     {
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+
+        if ($user->isVerified()) {
+            throw new EmailHasVerifiedException();
+        }
 
         $user->setIsVerified(true);
 
