@@ -16,6 +16,7 @@
         "easycorp/easyadmin-bundle": "^4.0",
         "guikingone/scheduler-bundle": "^0.8.0",
         "happyr/entity-exists-validation-constraint": "^1.0",
+        "league/commonmark": "^2.2",
         "lexik/jwt-authentication-bundle": "^2.13",
         "nelmio/cors-bundle": "^2.2",
         "nesbot/carbon": "^2.53",
@@ -53,7 +54,8 @@
         "symfonycasts/reset-password-bundle": "^1.9",
         "symfonycasts/verify-email-bundle": "^1.5",
         "twig/extra-bundle": "^3.3",
-        "twig/intl-extra": "^3.3"
+        "twig/intl-extra": "^3.3",
+        "twig/markdown-extra": "^3.3"
     },
     "config": {
         "optimize-autoloader": true,

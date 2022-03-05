@@ -129,6 +129,11 @@ class Snippet
     #[ORM\JoinColumn(nullable: false)]
     private Person $person;
 
+    #[Groups(['snippet:read'])]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private $updatedAt;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
@@ -290,6 +295,18 @@ class Snippet
     public function setPerson(?Person $person): self
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:"";content:none}table{border-collapse:collapse;border-spacing:0}html,body{font-size:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif}
+    
+    
+    
+        .flex{display: -webkit-flex;display: flex}.grid{display: grid}.align-v{-webkit-align-items: center;align-items: center}.container{width: 90%;max-width: 1400px;margin-left: auto;margin-right: auto}:root{--xxs: 3px;--xs: 5px;--s: 10px;--m: 15px;--l: 30px;--xl: 60px;--xxl: 90px;--xxxl: 120px}.p--xxs{padding: 3px}.p-y--xxs{padding-top: 3px;padding-bottom: 3px}.p-top--xxs{padding-top: 3px}.p-bottom--xxs{padding-bottom: 3px}.m--xxs{margin: 3px}.m-y--xxs{margin-top: 3px;margin-bottom: 3px}.m-top--xxs{margin-top: 3px}.m-bottom--xxs{margin-bottom: 3px}.gap--xxs{gap: 3px}.p--xs{padding: 5px}.p-y--xs{padding-top: 5px;padding-bottom: 5px}.p-top--xs{padding-top: 5px}.p-bottom--xs{padding-bottom: 5px}.m--xs{margin: 5px}.m-y--xs{margin-top: 5px;margin-bottom: 5px}.m-top--xs{margin-top: 5px}.m-bottom--xs{margin-bottom: 5px}.gap--xs{gap: 5px}.p--s{padding: 10px}.p-y--s{padding-top: 10px;padding-bottom: 10px}.p-top--s{padding-top: 10px}.p-bottom--s{padding-bottom: 10px}.m--s{margin: 10px}.m-y--s{margin-top: 10px;margin-bottom: 10px}.m-top--s{margin-top: 10px}.m-bottom--s{margin-bottom: 10px}.gap--s{gap: 10px}.p--m{padding: 15px}.p-y--m{padding-top: 15px;padding-bottom: 15px}.p-top--m{padding-top: 15px}.p-bottom--m{padding-bottom: 15px}.m--m{margin: 15px}.m-y--m{margin-top: 15px;margin-bottom: 15px}.m-top--m{margin-top: 15px}.m-bottom--m{margin-bottom: 15px}.gap--m{gap: 15px}.p--l{padding: 30px}.p-y--l{padding-top: 30px;padding-bottom: 30px}.p-top--l{padding-top: 30px}.p-bottom--l{padding-bottom: 30px}.m--l{margin: 30px}.m-y--l{margin-top: 30px;margin-bottom: 30px}.m-top--l{margin-top: 30px}.m-bottom--l{margin-bottom: 30px}.gap--l{gap: 30px}.p--xl{padding: 60px}.p-y--xl{padding-top: 60px;padding-bottom: 60px}.p-top--xl{padding-top: 60px}.p-bottom--xl{padding-bottom: 60px}.m--xl{margin: 60px}.m-y--xl{margin-top: 60px;margin-bottom: 60px}.m-top--xl{margin-top: 60px}.m-bottom--xl{margin-bottom: 60px}.gap--xl{gap: 60px}.p--xxl{padding: 90px}.p-y--xxl{padding-top: 90px;padding-bottom: 90px}.p-top--xxl{padding-top: 90px}.p-bottom--xxl{padding-bottom: 90px}.m--xxl{margin: 90px}.m-y--xxl{margin-top: 90px;margin-bottom: 90px}.m-top--xxl{margin-top: 90px}.m-bottom--xxl{margin-bottom: 90px}.gap--xxl{gap: 90px}.p--xxxl{padding: 120px}.p-y--xxxl{padding-top: 120px;padding-bottom: 120px}.p-top--xxxl{padding-top: 120px}.p-bottom--xxxl{padding-bottom: 120px}.m--xxxl{margin: 120px}.m-y--xxxl{margin-top: 120px;margin-bottom: 120px}.m-top--xxxl{margin-top: 120px}.m-bottom--xxxl{margin-bottom: 120px}.gap--xxxl{gap: 120px}.rounded--full{border-radius: 1000px}.rounded--xxs{border-radius: 3px}.rounded--xs{border-radius: 5px}.rounded--s{border-radius: 10px}.rounded--m{border-radius: 15px}.rounded--l{border-radius: 30px}.rounded--xl{border-radius: 60px}.rounded--xxl{border-radius: 90px}.rounded--xxxl{border-radius: 120px}.border{border: 1px solid rgba(0, 0, 0, 0.1)}.h1,#code--info h1,.h2,#code--info h2,.h3,#code--info h3{font-weight: 700}.h1,#code--info h1{font-size: 3em}.h2,#code--info h2{font-size: 2.25em}.h3,#code--info h3{font-size: 1.5em;margin-bottom: var(--s)}.footnote{font-size: 0.85em}strong{font-weight: 700}a,button{cursor: pointer;text-decoration: none}.cta--action{display: -webkit-inline-flex;display: inline-flex;gap: 5px;border: 1px solid rgba(0, 0, 0, 0.1);padding: var(--xs) var(--s);border-radius: var(--xs);color: #000}.cta--action__push{margin-left: auto}.cta--action:hover{background-color: #f5f7f9}.cta--primary{background-color: #7b68f1;color: #fff;padding: var(--s);border-radius: 100px}.cta--red{color: #da0000}.input{border: 1px solid rgba(0, 0, 0, 0.1);background-color: #f5f7f9;stroke: 0;border-radius: var(--xs);padding: var(--s);margin-top: var(--s)}.tags-wrap > .tag{background-color: #fff;display: -webkit-inline-flex;display: inline-flex;gap: 5px;border: 1px solid rgba(0, 0, 0, 0.1);padding: var(--xs) var(--s);margin-bottom: var(--xs);border-radius: 1000px;color: #000}.settings__group{display: block;margin: var(--l) 0}.settings__group:last-child{margin-bottom: 0}.settings__group .block{display: block;margin: var(--m) 0}.settings__group .inline-block{display: block;margin: var(--m) 0}.tab{overflow: hidden;margin-left: var(--s)}.tab button{border: none;outline: none;cursor: pointer;transition: 0.3s;font-size: 1em;padding: var(--m);border-bottom: 3px solid transparent;background-color: transparent}.tab button span{background-color: rgba(0, 0, 0, 0.1);padding: var(--xxs) var(--xs);font-size: 0.75em;border-radius: var(--xs)}.tab button:hover{border-bottom: 3px solid rgba(0, 0, 0, 0.1)}.tab button.active{border-bottom: 3px solid #7b68f1}#actions{display: -webkit-flex;display: flex;gap: 10px}#page-content{display: grid;grid-template-columns: repeat(3, 1fr)}#page-content main{grid-column: span 2}#page-content aside{-webkit-order: -1;order: -1;-webkit-align-self: start;align-self: start}#code--info{line-height: 1.5}#code--info p{line-height: 1.5}header{background-color: #f5f7f9;border-bottom: 1px solid rgba(0, 0, 0, 0.1);position: relative}header .container{display: -webkit-flex;display: flex;-webkit-align-items: center;align-items: center;-webkit-justify-content: space-between;justify-content: space-between;padding-top: var(--m);padding-bottom: var(--m)}
+
+
+        header > .container > nav > a {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        #info > img {
+            width: 32px;
+            height: 32px;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/previewers/prism-previewers.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+    <style>
+        #code-content-0 {
+            width: 100%;
+            height: 100%;
+        }
+
+        #pre-code-content-0 {
+            max-height: 300px;
+        }
+    </style>
+
+    <title>Snippet </title>
+</head>
+<body class="single-post">
+    <header>
+        <div class="container">
+
+            <a href="{{ path('app_dashboard') }}" id="brand">
+                <img src="{{ asset('build/images/logo.svg') }}" alt="">
+            </a>
+    
+            <nav>
+                <a href="{{ path('app_snippet_index') }}">Snippets Collection</a>
+                <a href="https://wordpress.org/plugins/code-snippets/">Code Snippets plugin</a>
+                <a href="https://dplugins.com/products/scripts-organizer/?ref=17&campaign=snippets-guru">Scripts Organizer plugin</a>
+            </nav>
+    
+            <a href="{{ path('app_login') }}" class="cta cta--primary">Login</a>        
+
+        </div>
+        
+    </header>
+
+
+    <div id="page-content" class="wrap container gap--xl p-y--xl">
+        <main id="content" class="grid gap--l">
+            <h1 class="h1 main-title">
+                {{ snippet.name|escape('html') }}
+            </h1>
+
+            <div id="info" class="flex align-v gap--s ">
+                <img class="rounded--full" src="https://gravatar.com/avatar/{{ md5(snippet.person.email) }}?s=32&d={{ 'https://gravatar.com/avatar/025fbbcf7b49926b1d6a3071fbaa9ae9?s=32'|url_encode }}" alt="">
+                <span><strong>{{ snippet.person.username }}</strong> 
+                <span>Created at {{ snippet.createdAt|date("d/m/Y") }}</span>
+                {% if snippet.updatedAt %}
+                    <span class="spacer">•</span>
+                    Updated at {{ snippet.updatedAt|date("d/m/Y") }}</span>
+                {% endif %}
+                
+            </div>
+
+            <div id="actions" class="">
+                {# <a href="#" class="cta--action"><img src="img/cta--action/favorite.svg">Favorite</a href="#"> #}
+                {# <a href="#" class="cta--action">
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.00004 14.7333L7.03337 13.8533C3.60004 10.74 1.33337 8.68667 1.33337 6.16667C1.33337 4.11333 2.94671 2.5 5.00004 2.5C6.16004 2.5 7.27337 3.04 8.00004 3.89333C8.72671 3.04 9.84004 2.5 11 2.5C13.0534 2.5 14.6667 4.11333 14.6667 6.16667C14.6667 8.68667 12.4 10.74 8.96671 13.86L8.00004 14.7333Z" fill="black"/>
+                    </svg>
+                    Favorite
+                </a> #}
+                {# <a href="#" class="cta--action">
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15.8333H2.66671C1.93337 15.8333 1.33337 15.2333 1.33337 14.5V5.16666H2.66671V14.5H12V15.8333ZM10 1.16666H5.33337C4.60004 1.16666 4.00671 1.76666 4.00671 2.5L4.00004 11.8333C4.00004 12.5667 4.59337 13.1667 5.32671 13.1667H12.6667C13.4 13.1667 14 12.5667 14 11.8333V5.16666L10 1.16666ZM11 10.5H7.00004V9.16666H11V10.5ZM11 6.5H9.66671V7.83333H8.33337V6.5H7.00004V5.16666H8.33337V3.83333H9.66671V5.16666H11V6.5Z" fill="black"/>
+                    </svg>
+                    Clone
+                </a> #}
+                {# <a href="#" class="cta--action">
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.99992 1.83334C4.31992 1.83334 1.33325 4.82 1.33325 8.5C1.33325 12.18 4.31992 15.1667 7.99992 15.1667C11.6799 15.1667 14.6666 12.18 14.6666 8.5C14.6666 4.82 11.6799 1.83334 7.99992 1.83334ZM7.33325 13.7867C4.69992 13.46 2.66659 11.22 2.66659 8.5C2.66659 8.08667 2.71992 7.69334 2.80659 7.30667L5.99992 10.5V11.1667C5.99992 11.9 6.59992 12.5 7.33325 12.5V13.7867ZM11.9333 12.0933C11.7599 11.5533 11.2666 11.1667 10.6666 11.1667H9.99992V9.16667C9.99992 8.8 9.69992 8.5 9.33325 8.5H5.33325V7.16667H6.66658C7.03325 7.16667 7.33325 6.86667 7.33325 6.5V5.16667H8.66658C9.39992 5.16667 9.99992 4.56667 9.99992 3.83334V3.56C11.9533 4.35334 13.3333 6.26667 13.3333 8.5C13.3333 9.88667 12.7999 11.1467 11.9333 12.0933Z" fill="black"/>
+                    </svg>
+                    Public
+                </a> #}
+                <a class="btn cta--action" data-clipboard-text="{{ url('app_snippet_show', {'uuid': snippet.uuid}) }}">
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.6667 3.83333L9.72008 4.78L8.66008 3.72V11.1667H7.34008V3.72L6.28008 4.78L5.33341 3.83333L8.00008 1.16666L10.6667 3.83333ZM13.3334 7.16666V14.5C13.3334 15.2333 12.7334 15.8333 12.0001 15.8333H4.00008C3.26008 15.8333 2.66675 15.2333 2.66675 14.5V7.16666C2.66675 6.42666 3.26008 5.83333 4.00008 5.83333H6.00008V7.16666H4.00008V14.5H12.0001V7.16666H10.0001V5.83333H12.0001C12.7334 5.83333 13.3334 6.42666 13.3334 7.16666Z" fill="black"/>
+                    </svg>
+                    Share
+                </a>
+                {# <a href="#" class="cta--action cta--action__push cta--red">Delete</a> #}
+            </div>
+
+            <div id="code" class="tabs">
+
+                <!-- Tab links -->
+                <div class="tab">
+                    {% for blob in snippet.blobs %}
+                        <button 
+                            class="tablinks {{ loop.index-1 == 0 ? 'active' : '' }}"
+                            data-blob-id="{{ loop.index-1 }}"
+                            data-blob-language="{{ blob.meta and 'language' in blob.meta|keys and blob.meta['language'] ? blob.meta['language'] : 'php' }}"
+                        >
+                            {% if blob.meta and 'name' in blob.meta|keys %}
+                                {{ blob.meta['name'] }}
+                            {% else %}
+                                Code #{{ loop.index-1 }}
+                            {% endif %}
+                            <span class="script-type">{{ blob.meta and 'extension' in blob.meta|keys ? blob.meta['extension']|upper : 'php'|upper }}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+                
+                
+
+                <!-- Tab content -->
+                {# {% for blob in snippet.blobs %}
+                    <div id="code-{{ loop.index-1 }}" class="tabcontent">
+                        <pre><code id="code-content-{{ loop.index-1 }}" rows="20">{{ blob.content }}</code></pre>
+                    </div>
+                {% endfor %} #}
+
+                <div id="code-0" class="tabcontent line-numbers">
+                    <pre id="pre-code-content-0" class=""><code id="code-content-0" class="highlight"></code></pre>
+                </div>
+
+            </div><!-- End of code -->
+
+            <div id="code--info">
+                <h3>Description</h3>
+                {% if snippet.meta and 'description_format' in snippet.meta|keys and snippet.meta['description_format'] == 'markdown' %}
+                    {{ snippet.description|markdown_to_html }}
+                {% else %}
+                    {{ snippet.description|striptags('<a><area><b><br><div><em><h1><h2><h3><h4><h5><h6><i><img><li><ol><p><s><span><strong><table><tbody><td><th><thead><tfoot><tr><u><ul>')|raw }}
+                {% endif %}
+            </div>
+        </main>
+
+        {% if snippet.namespace == 'code-snippets' %}
+            {% include 'app/snippet/_partials/code-snippets/_config.html.twig' %}
+        {% elseif snippet.namespace == 'scripts-organizer' %}
+            {% include 'app/snippet/_partials/scripts-organizer/_config.html.twig' %}
+        {% endif %}
+    </div>
+
+    <script>
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/previewers/prism-previewers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+        
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script>
+        const codes = {{ snippet.blobs|map(blob => blob.content)|json_encode()|raw }};
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const tabs = document.querySelectorAll(".tablinks");
+            const codeContent = document.getElementById("code-content-0");
+
+            let prefix = 'language-';
+            
+            let pattern = '(' + prefix + '(\\s|(-)?(\\w*)(\\s)?)).*?';
+            let regEx = new RegExp(pattern, 'g');
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", (e) => {
+                    if (!e.target.classList.contains('tablinks')) {
+                        return;
+                    }
+
+                    const tabId = e.target.getAttribute("data-blob-id");
+
+                    tabs.forEach(tab => {
+                        tab.classList.remove("active");
+                    });
+                    e.target.classList.add("active");
+
+                    codeContent.className = codeContent.className.replace(regEx, '');
+                    codeContent.classList.add('language-' + e.target.getAttribute("data-blob-language"));
+
+                    codeContent.innerHTML = _.escape(codes[tabId]);
+                    Prism.highlightElement(codeContent);
+                });
+            });
+
+            tabs[0].click();
+
+            let clipboard = new ClipboardJS('.btn');
+
+            clipboard.on('success', function(e) {
+                // console.info('Action:', e.action);
+                // console.info('Text:', e.text);
+                // console.info('Trigger:', e.trigger);
+
+                alertify.message('Copied!');
+
+                e.clearSelection();
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -62,6 +62,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/app/snippet, roles: PUBLIC_ACCESS }
         - { path: ^/app, roles: ROLE_USER }
         - { path: ^/auth/auth_token, roles: ROLE_USER }
         - { path: ^/auth/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }

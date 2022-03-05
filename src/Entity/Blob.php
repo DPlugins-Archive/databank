@@ -87,7 +87,7 @@ class Blob
 
     #[Groups(['blob:read', 'snippet:read'])]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Gedmo\Timestampable(on: 'create', field: ['meta', 'content'])]
+    #[Gedmo\Timestampable(on: 'change', field: ['meta', 'content'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
