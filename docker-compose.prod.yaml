@@ -5,7 +5,7 @@ services:
   php:
     volumes:
       # If you develop on Linux, you may use a bind-mounted host directory instead
-      - ./var:/srv/api/var:rw
+      - ./var/log:/srv/api/var/log:rw
     environment:
       APP_ENV: prod
       APP_SECRET: ${APP_SECRET}
